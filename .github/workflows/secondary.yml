@@ -1,0 +1,28 @@
+name: Depolyment to Heroku
+on:
+  push:
+    branches: main
+    
+jobs:
+  deploy:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Deploy to heroku"
+        uses: "akhileshns/heroku-deploy@v3.12.12"
+        with:
+          docker_heroku_process_type: web
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: pacific-crag-09866
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          justlogin: true
+
+      - name: "Login to heroku registry"
+        run: heroku container:login
+
+      - name: "Build and push to heroku registry"
+        run: heroku container:push web --app pacific-crag-09866
+
+      - name: "Releases the container"
+        run: heroku container:release web --app pacific-crag-09866
