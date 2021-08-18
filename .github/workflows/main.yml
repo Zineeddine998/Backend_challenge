@@ -1,5 +1,5 @@
 # Basic workflow to deploy local docker image to docker hub
-name: Docker Hub Deoplyment
+name: Docker Hub Deployment
 
 on:
   push:
