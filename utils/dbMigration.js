@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true
 });
 
-const sample_data = JSON.parse(fs.readFileSync(`${__dirname}/sample_data.json`, 'utf8'));
+const sample_data = JSON.parse(fs.readFileSync(`${__dirname}/../sample_data.json`, 'utf8'));
 
 // Import sample data to the database
 

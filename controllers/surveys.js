@@ -7,7 +7,7 @@ const asyncHandler = require('../middleware/async');
 //@route GET /api/v1/surveys
 //@access Public
 exports.getSurveys = asyncHandler(async (req, res, next) => {
-    res.status(200).json(res.advancedResults);
+    res.status(200).json(res.searchWrapper);
 })
 
 //@desc Get Survey by id
