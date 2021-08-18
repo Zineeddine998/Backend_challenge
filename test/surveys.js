@@ -64,3 +64,5 @@ describe("DELETE /api/v1/surveys/:id", function () {
         })
     })
 });
+
+process.exit(0);
