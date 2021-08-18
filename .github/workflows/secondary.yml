@@ -1,4 +1,4 @@
-name: Depolyment to Heroku
+name: Heroku Deployment
 on:
   push:
     branches: main
