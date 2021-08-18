@@ -1,14 +1,22 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
-    const connection = await mongoose.connect(process.env.MONGO_URI, {
+function connect() {
+    return new Promise((resolve, reject) => {
+        mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true,
+        }).then((res, err) => {
+            if (err) return reject(err);
+            resolve();
+        })
     });
 
-    console.log(`Initiate connection with mongodb instance: ${connection.connection.host}`)
 }
 
-module.exports = connectDB;
+function close() {
+    return mongoose.disconnect();
+}
+
+module.exports = { connect, close };
