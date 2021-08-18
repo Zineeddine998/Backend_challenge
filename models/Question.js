@@ -10,6 +10,10 @@ const QuestionSchema = new mongoose.Schema({
         type: Boolean,
         required: [true, 'Question must have an answer'],
     },
+    description_image: {
+        type: String,
+        default: '#'
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -1,13 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/mongoDB');
+const { configCloudinary } = require('./utils/cloudinary');
 const surveys = require('./routes/surveys');
 const questions = require('./routes/questions');
 const adminAuthentication = require('./routes/adminAuthentication');
 
 dotenv.config({ path: './config/config.env' });
 connectDB();
+configCloudinary();
 const app = express();
 app.use(express.json());
 
@@ -15,6 +19,9 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'));
 }
+
+app.use(fileupload());
+app.use(cookieParser());
 
 app.use('/api/v1/surveys', surveys);
 app.use('/api/v1/questions', questions);
