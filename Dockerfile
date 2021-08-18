@@ -21,7 +21,12 @@ RUN npm install -g npm-check-updates \
     ncu -u \
     npm install \
     npm install express \
-    npm install dotenv 
+    npm install dotenv \
+    npm install bcryptjs \
+    npm install crypto \
+    npm install jsonwebtoken \
+    npm install mongoose \
+    npm install morgan
 
 # If you are building your code for production
 RUN npm ci --only=production
