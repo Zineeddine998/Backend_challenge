@@ -23,7 +23,6 @@ const SurveySchema = new mongoose.Schema({
     }
 
 });
-
 SurveySchema.pre('remove', async function (next) {
     const listOfQuestions = this.questions;
     await listOfQuestions.map(async question => {
