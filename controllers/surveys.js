@@ -278,7 +278,9 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
 //@desc Take a Survey
 //@route POST /api/v1/surveys/take/:id
 //@access Public
+//params "correction" defines weather the correct answer should be returned to the client (default as false)
 exports.takeSurvey = asyncHandler(async (req, res, next) => {
+    let correctAnswers = req.body.correction ? req.body.correction : false
     if (req.body.questions) {
         req.body.questions.map(question => {
             const { id, answer } = question;
@@ -307,7 +309,11 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
                 scoreList.push(question.answer);
             }
         });
-        res.status(200).json({ success: true, score: scoreList.length, out_of: survey.questions.length });
+        if (correctAnswers) {
+            res.status(200).json({ success: true, score: scoreList.length, out_of: surveyExtended.questions.length, correct_answers: surveyExtended.questions });
+        } else {
+            res.status(200).json({ success: true, score: scoreList.length, out_of: surveyExtended.questions.length });
+        }
     } catch (err) {
         res.status(400).json({ success: false, error: err.message });
     }
