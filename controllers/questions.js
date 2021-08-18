@@ -15,33 +15,22 @@ exports.getQuestions = async (req, res, next) => {
         res.status(400).json({ success: false })
     }
 }
-
-//@desc Get all questions of a survey
+//@desc Get a single question
 //@route GET /api/v1/questions/:id
 //@access Public
-exports.getQuestion = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
-    if (!req.params.id) {
-        return next(
-            new ErrorResponse(`Missing fields`), 400
-        )
-    }
+exports.getQuestion = async (req, res, next) => {
     try {
-        const survey = await Survey.findById(id)?.populate({
-            path: "questions",
-            select: "text answer"
-        });
-        if (!survey) {
+        const question = await Question.findById(req.params.id);
+        if (!question) {
             return next(
-                new ErrorResponse(`No survey with the id ${id}`), 401
+                new ErrorResponse(`No quetion with the id of ${req.params.id}`), 404
             )
         }
-
-        res.status(200).json({ success: true, count: survey.questions.length, data: survey.questions });
+        res.status(200).json({ success: true, data: question });
     } catch (err) {
-        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+        res.status(400).json({ success: false })
     }
-});
+}
 
 
 //@desc Add a question to a survey
@@ -100,6 +89,26 @@ exports.deleteQuestion = asyncHandler(async (req, res, next) => {
 
 //@desc update a single question
 //@route UPDATE /api/v1/questions/:id
+//@access Private
+exports.updateQuestion = asyncHandler(async (req, res, next) => {
+    let question = await Question.findById(req.params.id);
+    if (!question) {
+        return next(
+            new ErrorResponse(`No question with the id of ${req.params.id}`), 404
+        )
+    }
+    question = await Question.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+    res.status(200).json({
+        success: true,
+        data: question
+    })
+});
+
+//@desc get a single question
+//@route GET /api/v1/questions/:id
 //@access Private
 exports.updateQuestion = asyncHandler(async (req, res, next) => {
     let question = await Question.findById(req.params.id);

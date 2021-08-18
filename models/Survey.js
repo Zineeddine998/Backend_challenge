@@ -24,12 +24,13 @@ const SurveySchema = new mongoose.Schema({
 
 });
 
-// SurveySchema.pre('remove', async function (next) {
-//     await this.model('Survey').deleteMany({
-//         survey: this._id
-//     });
-//     next();
-// })
+SurveySchema.pre('remove', async function (next) {
+    const listOfQuestions = this.questions;
+    await listOfQuestions.map(async question => {
+        await Question.findByIdAndDelete(question._id)
+    })
+    next();
+})
 // SurveySchema.virtual('questions', {
 //     ref: 'Qestion',
 //     localField: '_id',
