@@ -1,8 +1,6 @@
-const Survey = require('../models/Survey');
 const Question = require('../models/Question');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-
 
 //@desc Get all questions
 //@route GET /api/v1/questions
