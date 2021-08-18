@@ -16,7 +16,10 @@ exports.getSurveys = asyncHandler(async (req, res, next) => {
 exports.getSurvey = asyncHandler(async (req, res, next) => {
     const survey = await Survey.findById(req.params.id)?.populate('questions');
     if (!survey) {
-        return next(new ErrorResponse(`Survey not found with the id of ${req.params.id}`, 404));
+        return next(
+            new ErrorResponse(`No survey with the id of ${req.params.id}`),
+            404
+        );
     }
     res.status(200).json({ success: true, data: survey });
 });
@@ -29,8 +32,9 @@ exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     if (!req.params.id) {
         return next(
-            new ErrorResponse(`Missing fields`), 400
-        )
+            new ErrorResponse(`Missing id field`),
+            400
+        );
     }
     try {
         const survey = await Survey.findById(id)?.populate({
@@ -39,8 +43,9 @@ exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
         });
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with the id ${id}`), 401
-            )
+                new ErrorResponse(`No survey with the id of ${req.params.id}`),
+                404
+            );
         }
 
         res.status(200).json({ success: true, count: survey.questions.length, data: survey.questions });
@@ -56,16 +61,22 @@ exports.createSurvey = asyncHandler(async (req, res, next) => {
     const { name, questions, description } = req.body;
     try {
         if (!questions) {
-            return next(new ErrorResponse(`Missing questions parameter ${req.params.id}`, 400));
+            return next(
+                new ErrorResponse(`Missing questions parameter`),
+                400
+            );
         }
         if (!name) {
-            return next(new ErrorResponse(`Missing name parameter ${req.params.id}`, 400));
+            return next(
+                new ErrorResponse(`Missing name parameter`),
+                400
+            );
         }
         questionsList = [];
         let index = 0;
         questions.map((question) => {
             if (!question.text || (question.answer !== true && question.answer !== false)) {
-                return next(new ErrorResponse(`Missing fields on question ${index++}`, 400));
+                return next(new ErrorResponse(`Missing fields on question ${index++}`), 400);
             }
             questionsList.push(question);
         });
@@ -167,7 +178,7 @@ exports.addQuestionToSurvey = asyncHandler(async (req, res, next) => {
         );
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with this id`), 400
+                new ErrorResponse(`No survey with this id`), 404
             )
         }
         res.status(200).json({ success: true, count: survey.questions.length, data: survey });
@@ -207,10 +218,9 @@ exports.addManyQuestionsToSurvey = asyncHandler(async (req, res, next) => {
             path: 'questions',
             select: "text answer"
         });
-        console.log(survey);
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with this id`), 400
+                new ErrorResponse(`No survey with this id`), 404
             )
         }
         res.status(200).json({ success: true, count: survey.questions.length, data: survey });
@@ -238,7 +248,7 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
         await removedQuestion.remove();
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with this id`), 400
+                new ErrorResponse(`No Question with the id of ${idq}`), 404
             )
         }
         res.status(200).json({ success: true, count: survey.questions.length, data: survey });
@@ -247,32 +257,30 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
     }
 })
 
-//@desc delete a survey
-//@route DELETE /api/v1/surveys/:id
-//@access Private
-exports.add = asyncHandler(async (req, res, next) => {
-    let survey = await Survey.findById(req.params.id);
-    if (!survey) {
-        return next(
-            new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
-        )
-    }
-    await survey.remove();
-    res.status(200).json({
-        success: true,
-        data: {}
-    })
-});
+// //@desc delete a survey
+// //@route DELETE /api/v1/surveys/:id
+// //@access Private
+// exports. = asyncHandler(async (req, res, next) => {
+//     let survey = await Survey.findById(req.params.id);
+//     if (!survey) {
+//         return next(
+//             new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
+//         )
+//     }
+//     await survey.remove();
+//     res.status(200).json({
+//         success: true,
+//         data: {}
+//     })
+// });
 
 
 //@desc Take a Survey
 //@route POST /api/v1/surveys/take/:id
 //@access Public
 exports.takeSurvey = asyncHandler(async (req, res, next) => {
-    console.log(1);
     if (req.body.questions) {
         req.body.questions.map(question => {
-            console.log(2);
             const { id, answer } = question;
             if (!id || (answer !== true && answer !== false)) {
                 return next(
@@ -288,18 +296,12 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
             path: "questions",
             select: "answer"
         });
-        console.log(3);
         req.body.questions.map(question => {
             if (!survey.questions.includes(question.id)) {
-                return next(
-                    new ErrorResponse(`Question with id ${question.id} was not found in survey`), 404
-                )
+                return next(new ErrorResponse(`Question with id ${question.id} was not found in survey`), 404);
             }
         });
-        console.log(4);
         let scoreList = [];
-        console.log(surveyExtended);
-        console.log(req.body.questions);
         req.body.questions.map(question => {
             if (correctAnswer(surveyExtended.questions, question)) {
                 scoreList.push(question.answer);
@@ -314,12 +316,10 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
 const correctAnswer = (QuestionsList, question) => {
     for (let i = 0; i < QuestionsList.length; i++) {
         if (QuestionsList[i]._id == question.id && QuestionsList[i].answer === question.answer) {
-            console.log("there is solution");
             return true;
         }
     }
     return false;
-    return new ErrorResponse(`Fatal error`)
 }
 
 
