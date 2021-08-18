@@ -26,7 +26,16 @@ RUN npm install -g npm-check-updates \
     npm install crypto \
     npm install jsonwebtoken \
     npm install mongoose \
-    npm install morgan
+    npm install morgan \
+    npm install cloudinary \
+    npm install cookie-parser \
+    npm install express-fileupload \
+    npm install rotating-file-stream \
+    npm install -D chai \
+    npm install -D jest \
+    npm install -D mocha \
+    npm install -D supertest
+    
 
 # If you are building your code for production
 RUN npm ci --only=production

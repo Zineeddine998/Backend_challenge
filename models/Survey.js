@@ -5,7 +5,6 @@ const SurveySchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please add a name to the survey"],
-        trim: true,
         maxLength: [70, 'Name of survey cannot exceed 70 characters']
     },
     description: {
