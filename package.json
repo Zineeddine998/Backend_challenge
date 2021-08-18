@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/Zineeddine998/Backend_challenge#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
     "morgan": "^1.10.0"
   },
