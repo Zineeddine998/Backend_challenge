@@ -4,6 +4,7 @@ const errorHandler = require('./middleware/error');
 const connectDB = require('./config/mongoDB');
 const surveys = require('./routes/surveys');
 const questions = require('./routes/questions');
+const adminAuthentication = require('./routes/adminAuthentication');
 
 dotenv.config({ path: './config/config.env' });
 connectDB();
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/api/v1/surveys', surveys);
 app.use('/api/v1/questions', questions);
+app.use('/api/v1/auth', adminAuthentication);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

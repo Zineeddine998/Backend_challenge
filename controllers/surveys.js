@@ -17,9 +17,9 @@ exports.getSurvey = asyncHandler(async (req, res, next) => {
     const survey = await Survey.findById(req.params.id)?.populate('questions');
     if (!survey) {
         return next(
-            new ErrorResponse(`No survey with the id of ${req.params.id}`),
+            new ErrorResponse(`No survey with the id of ${req.params.id}`,
             404
-        );
+            ));
     }
     res.status(200).json({ success: true, data: survey });
 });
@@ -32,9 +32,9 @@ exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     if (!req.params.id) {
         return next(
-            new ErrorResponse(`Missing id field`),
+            new ErrorResponse(`Missing id field`,
             400
-        );
+            ));
     }
     try {
         const survey = await Survey.findById(id)?.populate({
@@ -43,8 +43,8 @@ exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
         });
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with the id of ${req.params.id}`),
-                404
+                new ErrorResponse(`No survey with the id of ${req.params.id}`,
+                    404)
             );
         }
 
@@ -62,21 +62,21 @@ exports.createSurvey = asyncHandler(async (req, res, next) => {
     try {
         if (!questions) {
             return next(
-                new ErrorResponse(`Missing questions parameter`),
-                400
+                new ErrorResponse(`Missing questions parameter`,
+                    400)
             );
         }
         if (!name) {
             return next(
-                new ErrorResponse(`Missing name parameter`),
-                400
+                new ErrorResponse(`Missing name parameter`,
+                    400)
             );
         }
         questionsList = [];
         let index = 0;
         questions.map((question) => {
             if (!question.text || (question.answer !== true && question.answer !== false)) {
-                return next(new ErrorResponse(`Missing fields on question ${index++}`), 400);
+                return next(new ErrorResponse(`Missing fields on question ${index++}`, 400));
             }
             questionsList.push(question);
         });
@@ -118,8 +118,8 @@ exports.updateSurvey = asyncHandler(async (req, res, next) => {
     let survey = await Survey.findById(req.params.id);
     if (!survey) {
         return next(
-            new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
-        )
+            new ErrorResponse(`No survey with the id of ${req.params.id}`, 404
+            ))
     }
     const updatedFields = {
         name: req.body.name,
@@ -142,8 +142,8 @@ exports.deleteSurvey = asyncHandler(async (req, res, next) => {
     let survey = await Survey.findById(req.params.id);
     if (!survey) {
         return next(
-            new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
-        )
+            new ErrorResponse(`No survey with the id of ${req.params.id}`, 404
+            ))
     }
     await survey.remove();
     res.status(200).json({
@@ -159,8 +159,8 @@ exports.addQuestionToSurvey = asyncHandler(async (req, res, next) => {
     const { text, answer } = req.body;
     if (!text || (answer !== true && answer !== false) || !req.params.id) {
         return next(
-            new ErrorResponse(`Question missing fields`), 400
-        )
+            new ErrorResponse(`Question missing fields`, 400
+            ))
     }
     try {
         const question = await Question.create({
@@ -178,8 +178,8 @@ exports.addQuestionToSurvey = asyncHandler(async (req, res, next) => {
         );
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with this id`), 404
-            )
+                new ErrorResponse(`No survey with this id`, 404
+                ))
         }
         res.status(200).json({ success: true, count: survey.questions.length, data: survey });
     } catch (err) {
@@ -196,8 +196,8 @@ exports.addManyQuestionsToSurvey = asyncHandler(async (req, res, next) => {
             const { text, answer } = question;
             if (!text || (answer !== true && answer !== false)) {
                 return next(
-                    new ErrorResponse(`One of the questions is missing fields`), 400
-                )
+                    new ErrorResponse(`One of the questions is missing fields`, 400
+                    ))
             }
         })
     }
@@ -220,8 +220,8 @@ exports.addManyQuestionsToSurvey = asyncHandler(async (req, res, next) => {
         });
         if (!survey) {
             return next(
-                new ErrorResponse(`No survey with this id`), 404
-            )
+                new ErrorResponse(`No survey with this id`, 404
+                ))
         }
         res.status(200).json({ success: true, count: survey.questions.length, data: survey });
     } catch (err) {
@@ -248,8 +248,8 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
         await removedQuestion.remove();
         if (!survey) {
             return next(
-                new ErrorResponse(`No Question with the id of ${idq}`), 404
-            )
+                new ErrorResponse(`No Question with the id of ${idq}`, 404
+                ))
         }
         res.status(200).json({ success: true, count: survey.questions.length, data: survey });
     } catch (err) {
@@ -284,8 +284,8 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
             const { id, answer } = question;
             if (!id || (answer !== true && answer !== false)) {
                 return next(
-                    new ErrorResponse(`One of the questions is missing fields`), 400
-                )
+                    new ErrorResponse(`One of the questions is missing fields`, 400
+                    ))
             }
         })
     }
@@ -298,7 +298,7 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
         });
         req.body.questions.map(question => {
             if (!survey.questions.includes(question.id)) {
-                return next(new ErrorResponse(`Question with id ${question.id} was not found in survey`), 404);
+                return next(new ErrorResponse(`Question with id ${question.id} was not found in survey`, 404));
             }
         });
         let scoreList = [];

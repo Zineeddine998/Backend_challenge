@@ -23,9 +23,9 @@ exports.getQuestion = async (req, res, next) => {
         const question = await Question.findById(req.params.id);
         if (!question) {
             return next(
-                new ErrorResponse(`No question with the id of ${req.params.id}`),
+                new ErrorResponse(`No question with the id of ${req.params.id}`,
                 404
-            );
+                ));
         }
         res.status(200).json({ success: true, data: question });
     } catch (err) {
@@ -42,9 +42,9 @@ exports.deleteQuestion = asyncHandler(async (req, res, next) => {
     let question = await Question.findById(req.params.id);
     if (!question) {
         return next(
-            new ErrorResponse(`No question with the id of ${req.params.id}`),
+            new ErrorResponse(`No question with the id of ${req.params.id}`,
             404
-        );
+            ));
     }
     await question.remove();
     res.status(200).json({
@@ -60,9 +60,9 @@ exports.updateQuestion = asyncHandler(async (req, res, next) => {
     let question = await Question.findById(req.params.id);
     if (!question) {
         return next(
-            new ErrorResponse(`No question with the id of ${req.params.id}`),
+            new ErrorResponse(`No question with the id of ${req.params.id}`,
             404
-        );
+            ));
     }
     question = await Question.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
