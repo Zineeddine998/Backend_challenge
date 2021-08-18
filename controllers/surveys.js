@@ -1,83 +1,145 @@
 const Survey = require('../models/Survey');
 const Question = require('../models/Question');
+const ErrorResponse = require('../utils/errorResponse');
+const asyncHandler = require('../middleware/async');
 
 //@desc Get all surveys
 //@route GET /api/v1/surveys
 //@access Public
-exports.getSurveys = async (req, res, next) => {
-    try {
-        const surveys = await Survey.find();
-        res.status(200).json({ success: true, count: surveys.length, data: surveys });
-    } catch (err) {
-        res.status(400).json({ success: false })
-    }
-}
+exports.getSurveys = asyncHandler(async (req, res, next) => {
+    res.status(200).json(res.advancedResults);
+})
 
-//@desc Get survey by id
-//@route GET /api/v1/surveys/:id
+//@desc Get Survey by id
+//@route GET /api/v1/survey/:id
 //@access Public
-exports.getSurvey = async (req, res, next) => {
-    try {
-        const survey = await Survey.findById(req.params.id);
-        if (!survey) {
-            return res.status(400).json({ success: false })
-        }
-        res.status(200).json({ success: true, data: survey });
-    } catch (err) {
-        res.status(400).json({ success: false })
+exports.getSurvey = asyncHandler(async (req, res, next) => {
+    const survey = await Survey.findById(req.params.id)?.populate('questions');
+    if (!survey) {
+        return next(new ErrorResponse(`Survey not found with the id of ${req.params.id}`, 404));
     }
-}
+    res.status(200).json({ success: true, data: survey });
+});
 
+
+//@desc Get all questions of a survey
+//@route GET /api/v1/surveys/:id/questions
+//@access Public
+exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    if (!req.params.id) {
+        return next(
+            new ErrorResponse(`Missing fields`), 400
+        )
+    }
+    try {
+        const survey = await Survey.findById(id)?.populate({
+            path: "questions",
+            select: "text answer"
+        });
+        if (!survey) {
+            return next(
+                new ErrorResponse(`No survey with the id ${id}`), 401
+            )
+        }
+
+        res.status(200).json({ success: true, count: survey.questions.length, data: survey.questions });
+    } catch (err) {
+        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+    }
+});
 
 //@desc Create a survey
 //@route POST /api/v1/surveys/
 //@access Public
-exports.createSurvey = async (req, res, next) => {
-
+exports.createSurvey = asyncHandler(async (req, res, next) => {
+    const { name, questions, description } = req.body;
     try {
-        if (!req.body.questions || !req.body.name) {
-            res.status(400).json({ success: false, error: "no questions to be added to the survey" });
-            next();
+        if (!questions) {
+            return next(new ErrorResponse(`Missing questions parameter ${req.params.id}`, 400));
         }
-        req.body.questions.map((index, question) => {
-            if (!question.text || !question.answer)
-                res.status(400).json({ success: false, error: `Question ${index} has missing fields` });
-            next();
+        if (!name) {
+            return next(new ErrorResponse(`Missing name parameter ${req.params.id}`, 400));
+        }
+        questionsList = [];
+        let index = 0;
+        questions.map((question) => {
+            if (!question.text || (question.answer !== true && question.answer !== false)) {
+                return next(new ErrorResponse(`Missing fields on question ${index++}`, 400));
+            }
+            questionsList.push(question);
         });
-        let newSurvey = await Survey.create({
-            name: req.body.name,
-            description: req.body.description ? req.body.description : undefined,
+        let survey = await Survey.create({
+            name: name,
+            description: description ? description : undefined,
             questions: []
         });
-        await req.body.questions.map((question) => {
-            return Question.create(question).then(newQuestion => {
-                return Survey.findByIdAndUpdate(
-                    newSurvey._id,
-                    { $push: { questions: newQuestion._id } },
-                    { new: true, useFindAndModify: false }
-                );
+        const id = survey.id;
+        let updatedSurvey;
+        for (let i = 0; i < questionsList.length; i++) {
+            const { text, answer } = questionsList[i];
+            question = await Question.create({
+                text,
+                answer
             });
-        });
-        res.status(400).json({ success: true, data: newSurvey });
-
+            updatedSurvey = await Survey.findByIdAndUpdate(
+                id,
+                { $push: { questions: question._id } },
+                { new: true, useFindAndModify: false }
+            ).populate({
+                path: 'questions',
+                select: "text answer"
+            }
+            );
+        }
+        res.status(200).json({ success: true, data: updatedSurvey });
     } catch (err) {
         res.status(400).json({ success: false, error: err.message })
     }
+});
 
-}
 //@desc Update a survey
 //@route PUT /api/v1/survey/:id
 //@access Private (Reserved to admin)
-exports.updateSurvey = (req, res, next) => {
-    res.status(200).json({ success: true, message: `Update Survey ${req.params.id}` });
-}
+//  (can only update name and description
+//  questions can be updated seperatelly)
+exports.updateSurvey = asyncHandler(async (req, res, next) => {
+    let survey = await Survey.findById(req.params.id);
+    if (!survey) {
+        return next(
+            new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
+        )
+    }
+    const updatedFields = {
+        name: req.body.name,
+        description: req.body.description ? req.body.description : undefined
+    }
+    survey = await Survey.findByIdAndUpdate(req.params.id, updatedFields, {
+        new: true,
+        runValidators: true
+    });
+    res.status(200).json({
+        success: true,
+        data: survey
+    })
+});
 
-//@desc Delete a Survey
+//@desc delete a survey
 //@route DELETE /api/v1/surveys/:id
-//@access Private (Reserved for the admin)
-exports.deleteSurvey = (req, res, next) => {
-    res.status(200).json({ success: true, message: `Delete Survey ${req.params.id}` });
-}
+//@access Private
+exports.deleteSurvey = asyncHandler(async (req, res, next) => {
+    let survey = await Survey.findById(req.params.id);
+    if (!survey) {
+        return next(
+            new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
+        )
+    }
+    await survey.remove();
+    res.status(200).json({
+        success: true,
+        data: {}
+    })
+});
 
 //@desc Take a Survey
 //@route POST /api/v1/surveys/take/:id
