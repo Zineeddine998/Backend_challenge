@@ -60,9 +60,10 @@ describe("DELETE /api/v1/surveys/:id", function () {
             app.delete('/api/v1/surveys/611d605357d4a8122d86b272')
                 .end((err, res) => {
                     expect(res.body.success).to.equal(false);
+                    process.exit(0);
                 })
         })
     })
 });
 
-process.exit(0);
+
