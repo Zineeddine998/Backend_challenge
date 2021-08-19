@@ -139,7 +139,7 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
         .then(async (result) => {
             let url = result.url;
             const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, { description_image: url });
-
+            updatedQuestion.description_image = url;
             try {
                 fs.unlinkSync(filepath)
             } catch (err) {
