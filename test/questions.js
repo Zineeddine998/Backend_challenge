@@ -9,7 +9,6 @@ describe("GET /api/v1/questions", function () {
         it("Success should return {success : true}", function () {
             app.get('/api/v1/questions').end((err, res) => {
                 expect(res.body.success).to.equal(false);
-                process.exit(0);
             });
         })
     })

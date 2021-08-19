@@ -10,6 +10,7 @@ const { configCloudinary } = require('./utils/cloudinary');
 const surveys = require('./routes/surveys');
 const questions = require('./routes/questions');
 const entries = require('./routes/entries');
+const answers = require('./routes/answers');
 const adminAuthentication = require('./routes/adminAuthentication');
 
 dotenv.config({ path: './config/config.env' });
@@ -35,6 +36,7 @@ app.use(cookieParser());
 app.use('/api/v1/surveys', surveys);
 app.use('/api/v1/entries', entries);
 app.use('/api/v1/questions', questions);
+app.use('/api/v1/answers', answers);
 app.use('/api/v1/auth', adminAuthentication);
 app.use(errorHandler);
 
