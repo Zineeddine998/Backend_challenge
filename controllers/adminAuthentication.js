@@ -1,6 +1,10 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
+const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
+
+
 
 // @desc      Register admin
 // @route     POST /api/v1/auth/register
