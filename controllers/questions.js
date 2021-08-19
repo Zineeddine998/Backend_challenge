@@ -106,6 +106,7 @@ exports.updateQuestion = asyncHandler(async (req, res, next) => {
 // @route     PUT /api/v1/questions/:id/photo
 // @access    Private
 exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
+    console.log(req.files);
     const question = await Question.findById(req.params.id);
     if (!question) {
         return next(

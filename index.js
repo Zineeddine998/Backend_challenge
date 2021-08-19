@@ -1,6 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
@@ -17,6 +19,11 @@ dotenv.config({ path: './config/config.env' });
 configCloudinary();
 const app = express();
 app.use(express.json());
+
+
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Logging for development environments
 app.use(morgan(process.env.REQUEST_LOG_FORMAT || 'dev', {

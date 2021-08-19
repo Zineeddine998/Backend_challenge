@@ -49,6 +49,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
     });
     res.status(200).json({
         success: true,
+        message: "logged out",
         data: {}
     });
 });
@@ -96,6 +97,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        email: "email sent, check inbox to reset password",
         data: user
     });
 });
