@@ -1,0 +1,4093 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Backend Challenge : Surveys management api",
+    "description": "Api to create, take and manage surveys, it opeations on 5 main routes: \n\n- Surveys\n- Questions\n- Entries (results when taking a survey)\n- Answers\n- Auth (admin only)",
+    "contact": {},
+    "version": "1.0.1",
+    "x-codegen-settings": {
+      "Nullify404": false,
+      "GenerateAsyncCode": true,
+      "UseMethodPrefix": false,
+      "UseModelPostfix": false,
+      "UseControllerPrefix": true,
+      "UseEnumPostfix": true,
+      "CollectParameters": false,
+      "UseConstructorsForConfig": false,
+      "UseCommonSDKLibrary": false,
+      "iOSUseAppInfoPlist": false,
+      "AndroidUseAppManifest": false,
+      "BodySerialization": 0,
+      "EnableAdditionalModelProperties": false,
+      "PreserveParameterOrder": true,
+      "AppendContentHeaders": true,
+      "iOSGenerateCoreData": false,
+      "GenerateInterfaces": false,
+      "NodeHttpClient": "NODE_REQUEST",
+      "ValidateRequiredParameters": false,
+      "JavaUsePropertiesConfig": false,
+      "Timeout": 0,
+      "StoreTimezoneInformation": false,
+      "EnablePHPComposerVersionString": false,
+      "EnableLogging": false,
+      "ArraySerialization": "Indexed",
+      "ModelSerializationScheme": "Json",
+      "UseExceptionPrefix": true,
+      "RunscopeEnabled": false,
+      "AndroidHttpClient": "ANDROID_OK",
+      "ObjCHttpClient": "UNIREST",
+      "CSharpHttpClient": "UNIREST",
+      "PHPHttpClient": "UNIREST",
+      "JavaHttpClient": "JAVA_OK",
+      "ParameterArrayFormat": "ParamArrayWithIndex",
+      "SecurityProtocols": [
+        "Ssl3",
+        "Tls"
+      ],
+      "GenerateTravisConfig": false,
+      "GenerateCircleConfig": false,
+      "GenerateAppveyorConfig": false,
+      "GenerateJenkinsConfig": false,
+      "EnableHttpCache": false,
+      "Retries": 0,
+      "RetryInterval": 1,
+      "GenerateAdvancedDocs": true,
+      "UnderscoreNumbers": true,
+      "UseSingletonPattern": true,
+      "DisableLinting": false,
+      "ApplyCustomizations": [],
+      "SortResources": false,
+      "AllowSkippingSSLCertVerification": false,
+      "DoNotSplitWords": [],
+      "EnableGlobalUserAgent": true,
+      "ReturnCompleteHttpResponse": false,
+      "GenerateModels": true,
+      "GenerateExceptions": true,
+      "IgnoreIfNullJson": false,
+      "DisableDocs": false,
+      "LiftParameterDescriptionFromCustomType": false,
+      "ThrowForHttpErrorStatusCodes": true,
+      "ResponseMapping": {
+        "Type": "Simple"
+      },
+      "ForceKeywordArgsInRuby": false,
+      "SymbolizeHashKeysInRuby": false,
+      "UsageExampleEndpoint": {
+        "Description": "",
+        "EndpointGroupName": "",
+        "EndpointName": ""
+      },
+      "IsLatestVersion": false,
+      "EnableImmutableModels": false,
+      "GenerateEnums": true,
+      "BackoffFactor": 2,
+      "StatusCodesToRetry": [
+        408,
+        413,
+        429,
+        500,
+        502,
+        503,
+        504,
+        521,
+        522,
+        524
+      ],
+      "RequestMethodsToRetry": [
+        "GET",
+        "PUT"
+      ],
+      "UserConfigurableRetries": true,
+      "UseEndpointMethodName": false,
+      "EncodeTemplateParameters": true,
+      "GenerateExamplesForOptionalFields": false,
+      "MultitargetDotnetVersions": false,
+      "BackoffMax": 0,
+      "RetryOnTimeout": true
+    },
+    "x-server-configuration": {
+      "default-environment": "production",
+      "default-server": "Server 1",
+      "environments": [
+        {
+          "name": "production",
+          "servers": [
+            {
+              "name": "Server 1",
+              "url": "http://example.com"
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    "x-image-uri": ""
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/T7348/nodemondew/1.0.1",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://pacific-crag-09866.herokuapp.com/api/v1",
+      "description": "Production environment"
+    },
+    {
+      "url": "http://localhost:5000/api/v1",
+      "description": "Development environment"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Surveys"
+    },
+    {
+      "name": "Questions"
+    },
+    {
+      "name": "Auth (admin only)"
+    },
+    {
+      "name": "Entries"
+    },
+    {
+      "name": "Answers"
+    }
+  ],
+  "paths": {
+    "/surveys": {
+      "get": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Get all surveys",
+        "description": "### Get all surveys\n\nreturn an array containing the list of all surveys (check example).\n\n**protected route** : no\n\n**parameters** : none",
+        "operationId": "Getallsurveys",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "Content-Length": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "881"
+                  }
+                }
+              },
+              "ETag": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"371-WsU4Zvum11RNzGcZDaPAcdXC62A\""
+                  }
+                }
+              },
+              "Date": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Thu, 19 Aug 2021 03:54:24 GMT"
+                  }
+                }
+              },
+              "Connection": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfSurveys"
+                },
+                "example": {
+                  "success": true,
+                  "count": 2,
+                  "pagination": {},
+                  "data": [
+                    {
+                      "questions": [
+                        {
+                          "description_image": "#",
+                          "_id": "611dbb162dff966ff7db9fd4",
+                          "text": "this is the first question2",
+                          "createdAt": "2021-08-19T01:59:50.998+0000",
+                          "__v": 0
+                        },
+                        {
+                          "description_image": "#",
+                          "_id": "611dbb172dff966ff7db9fd8",
+                          "text": "this is the second question2",
+                          "createdAt": "2021-08-19T01:59:51.823+0000",
+                          "__v": 0
+                        }
+                      ],
+                      "_id": "611dbb162dff966ff7db9fd2",
+                      "name": "survey2",
+                      "description": "description2"
+                    },
+                    {
+                      "questions": [
+                        {
+                          "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg",
+                          "_id": "611db933aab9cc6ab4912a2d",
+                          "text": "updated text",
+                          "createdAt": "2021-08-19T01:51:47.590+0000",
+                          "__v": 0
+                        },
+                        {
+                          "description_image": "#",
+                          "_id": "611db934aab9cc6ab4912a31",
+                          "text": "this is the second question",
+                          "createdAt": "2021-08-19T01:51:48.419+0000",
+                          "__v": 0
+                        }
+                      ],
+                      "_id": "611db933aab9cc6ab4912a2b",
+                      "name": "survey",
+                      "description": "description"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/surveys"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Powered-By": "Express",
+                "Content-Length": "881",
+                "ETag": "W/\"371-WsU4Zvum11RNzGcZDaPAcdXC62A\"",
+                "Date": "Thu, 19 Aug 2021 03:54:24 GMT",
+                "Connection": "keep-alive"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"count\": 2,\n\n  \"pagination\": {},\n\n  \"data\": [\n\n    {\n\n      \"questions\": [\n\n        {\n\n          \"description_image\": \"#\",\n\n          \"_id\": \"611dbb162dff966ff7db9fd4\",\n\n          \"text\": \"this is the first question2\",\n\n          \"createdAt\": \"2021-08-19T01:59:50.998Z\",\n\n          \"__v\": 0\n\n        },\n\n        {\n\n          \"description_image\": \"#\",\n\n          \"_id\": \"611dbb172dff966ff7db9fd8\",\n\n          \"text\": \"this is the second question2\",\n\n          \"createdAt\": \"2021-08-19T01:59:51.823Z\",\n\n          \"__v\": 0\n\n        }\n\n      ],\n\n      \"_id\": \"611dbb162dff966ff7db9fd2\",\n\n      \"name\": \"survey2\",\n\n      \"description\": \"description2\"\n\n    },\n\n    {\n\n      \"questions\": [\n\n        {\n\n          \"description_image\": \"http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg\",\n\n          \"_id\": \"611db933aab9cc6ab4912a2d\",\n\n          \"text\": \"updated text\",\n\n          \"createdAt\": \"2021-08-19T01:51:47.59Z\",\n\n          \"__v\": 0\n\n        },\n\n        {\n\n          \"description_image\": \"#\",\n\n          \"_id\": \"611db934aab9cc6ab4912a31\",\n\n          \"text\": \"this is the second question\",\n\n          \"createdAt\": \"2021-08-19T01:51:48.419Z\",\n\n          \"__v\": 0\n\n        }\n\n      ],\n\n      \"_id\": \"611db933aab9cc6ab4912a2b\",\n\n      \"name\": \"survey\",\n\n      \"description\": \"description\"\n\n    }\n\n  ]\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all surveys",
+            "x-testDescription": "### Get all surveys\n\nreturn an array containing the list of all surveys (check example).\n\n**protected route** : no\n\n**parameters** : none"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Create a survey",
+        "description": "### Create a survey\ngiven an object containing the attributes of a survey (name, description, questions) create a survey.\n\n**protected route** : no\n\n**parameters** : survey object",
+        "operationId": "Createasurvey",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateasurveyRequest"
+              },
+              "example": {
+                "name": "",
+                "description": "",
+                "questions": []
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Createasurvey"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "questions": [
+                      {
+                        "_id": "611ddc28dfa66d6cd113574f",
+                        "text": "text of the first question"
+                      },
+                      {
+                        "_id": "611ddc29dfa66d6cd1135753",
+                        "text": "text of the second question"
+                      }
+                    ],
+                    "_id": "611ddc28dfa66d6cd113574d",
+                    "name": "name",
+                    "description": "description"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Createasurvey2"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Survey cannot have no questions"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/surveys",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"name\": \"\",\n\n  \"description\": \"\",\n\n  \"questions\": []\n\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"questions\": [\n\n      {\n\n        \"_id\": \"611ddc28dfa66d6cd113574f\",\n\n        \"text\": \"text of the first question\"\n\n      },\n\n      {\n\n        \"_id\": \"611ddc29dfa66d6cd1135753\",\n\n        \"text\": \"text of the second question\"\n\n      }\n\n    ],\n\n    \"_id\": \"611ddc28dfa66d6cd113574d\",\n\n    \"name\": \"name\",\n\n    \"description\": \"description\"\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Create a survey",
+            "x-testDescription": "### Create a survey\ngiven an object containing the attributes of a survey (name, description, questions) create a survey.\n\n**protected route** : no\n\n**parameters** : survey object"
+          }
+        ]
+      }
+    },
+    "/surveys/{id}": {
+      "get": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Get survey by id",
+        "description": "### Get survey by id\nreturn an object survey if found otherwise an empty object\n\n**protect route** : no\n**parameters** : id",
+        "operationId": "Getsurveybyid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "Content-Length": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "471"
+                  }
+                }
+              },
+              "ETag": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"1d7-8n/WZk1V5JEcCFkAefzBw4cGL10\""
+                  }
+                }
+              },
+              "Date": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Thu, 19 Aug 2021 03:56:36 GMT"
+                  }
+                }
+              },
+              "Connection": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfSurveys1"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "questions": [
+                      {
+                        "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg",
+                        "_id": "611db933aab9cc6ab4912a2d",
+                        "text": "updated text",
+                        "createdAt": "2021-08-19T01:51:47.590+0000",
+                        "__v": 0
+                      },
+                      {
+                        "description_image": "#",
+                        "_id": "611db934aab9cc6ab4912a31",
+                        "text": "this is the second question",
+                        "createdAt": "2021-08-19T01:51:48.419+0000",
+                        "__v": 0
+                      }
+                    ],
+                    "_id": "611db933aab9cc6ab4912a2b",
+                    "name": "survey",
+                    "description": "description"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/surveys/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Powered-By": "Express",
+                "Content-Length": "471",
+                "ETag": "W/\"1d7-8n/WZk1V5JEcCFkAefzBw4cGL10\"",
+                "Date": "Thu, 19 Aug 2021 03:56:36 GMT",
+                "Connection": "keep-alive"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"questions\": [\n\n      {\n\n        \"description_image\": \"http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg\",\n\n        \"_id\": \"611db933aab9cc6ab4912a2d\",\n\n        \"text\": \"updated text\",\n\n        \"createdAt\": \"2021-08-19T01:51:47.59Z\",\n\n        \"__v\": 0\n\n      },\n\n      {\n\n        \"description_image\": \"#\",\n\n        \"_id\": \"611db934aab9cc6ab4912a31\",\n\n        \"text\": \"this is the second question\",\n\n        \"createdAt\": \"2021-08-19T01:51:48.419Z\",\n\n        \"__v\": 0\n\n      }\n\n    ],\n\n    \"_id\": \"611db933aab9cc6ab4912a2b\",\n\n    \"name\": \"survey\",\n\n    \"description\": \"description\"\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get survey by id",
+            "x-testDescription": "### Get survey by id\nreturn an object survey if found otherwise an empty object\n\n**protect route** : no\n**parameters** : id"
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Update a survey",
+        "description": "## Update a survey given its id \naccepts as parameters the id of the survey and object containing attributes to update (only updates static attributes like name and description).\n\n**protected route** : yes\n\n**parameters** : id, survey",
+        "operationId": "Updateasurvey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatedSurvey"
+              },
+              "example": {
+                "name": "",
+                "description": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Express"
+                  }
+                }
+              },
+              "Content-Length": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "76"
+                  }
+                }
+              },
+              "ETag": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "W/\"4c-uyR46OKIkM4uLnRMPwlzwR8zL8M\""
+                  }
+                }
+              },
+              "Date": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Thu, 19 Aug 2021 04:00:09 GMT"
+                  }
+                }
+              },
+              "Connection": {
+                "style": "simple",
+                "explode": false,
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "keep-alive"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/Updateasurvey"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "_id": "611db933aab9cc6ab4912a2b",
+                    "name": "updated name",
+                    "description": "updated desc"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Updateasurvey2"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/surveys/null",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"name\": \"\",\n\n  \"description\": \"\"\n\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Powered-By": "Express",
+                "Content-Length": "76",
+                "ETag": "W/\"4c-uyR46OKIkM4uLnRMPwlzwR8zL8M\"",
+                "Date": "Thu, 19 Aug 2021 04:00:09 GMT",
+                "Connection": "keep-alive"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"_id\": \"611db933aab9cc6ab4912a2b\",\n\n    \"name\": \"updated name\",\n\n    \"description\": \"updated desc\"\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Update a survey",
+            "x-testDescription": "## Update a survey given its id \naccepts as parameters the id of the survey and object containing attributes to update (only updates static attributes like name and description).\n\n**protected route** : yes\n\n**parameters** : id, survey"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Delete survey",
+        "description": "### Delete survey by id\nDelete a survey with its id return error if the id is not found\n\n**protected route** : yes\n\n**parameters** : id",
+        "operationId": "Deletesurvey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteSurveyMessage2"
+                },
+                "example": {
+                  "success": true,
+                  "data": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deletesurvey1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/surveys/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {}\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Delete survey",
+            "x-testDescription": "### Delete survey by id\nDelete a survey with its id return error if the id is not found\n\n**protected route** : yes\n\n**parameters** : id"
+          }
+        ]
+      }
+    },
+    "/surveys/take/{id}": {
+      "post": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Take a survey",
+        "description": "## Take a survey\nsends all the questions of a given survey with their respective answers and store it as an entry.\n\n**protected route** : no\n\n**parameters** : Object: list of questions id and boolean answer",
+        "operationId": "Takeasurvey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": "{ \"answers\" : [ { \"question_id\" : \"\", \"answer\" : true }, { \"question_id\" : \"\", \"answer\" : false } ] }"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Takeasurvey"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Entry saved",
+                  "data": {
+                    "answers": [
+                      {
+                        "_id": "611dde04dfa66d6cd1135760",
+                        "text": "text of the first question",
+                        "answer": true
+                      },
+                      {
+                        "_id": "611dde05dfa66d6cd1135763",
+                        "text": "text of the second question",
+                        "answer": false
+                      }
+                    ],
+                    "_id": "611dde04dfa66d6cd113575d",
+                    "createdAt": "2021-08-19T04:28:52.577+0000",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Takeasurvey2"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Missing answer to question with id 611ddc29dfa66d6cd1135753"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/surveys/take/null",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"answers\": []\n\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"message\": \"Entry saved\",\n\n  \"data\": {\n\n    \"answers\": [\n\n      {\n\n        \"_id\": \"611dde04dfa66d6cd1135760\",\n\n        \"text\": \"text of the first question\",\n\n        \"answer\": true\n\n      },\n\n      {\n\n        \"_id\": \"611dde05dfa66d6cd1135763\",\n\n        \"text\": \"text of the second question\",\n\n        \"answer\": false\n\n      }\n\n    ],\n\n    \"_id\": \"611dde04dfa66d6cd113575d\",\n\n    \"createdAt\": \"2021-08-19T04:28:52.577Z\",\n\n    \"__v\": 0\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Take a survey",
+            "x-testDescription": "## Take a survey\nsends all the questions of a given survey with their respective answers and store it as an entry.\n\n**protected route** : no\n\n**parameters** : Object: list of questions id and boolean answer"
+          }
+        ]
+      }
+    },
+    "/questions": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Get all questions",
+        "description": "### Get all questions\nreturns a list of all the questions of all the surveys\n\n**protected route** : no\n\n**parameters** : none",
+        "operationId": "Getallquestions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallquestions"
+                },
+                "example": {
+                  "success": true,
+                  "count": 4,
+                  "pagination": {},
+                  "data": [
+                    {
+                      "description_image": "#",
+                      "_id": "611ddc29dfa66d6cd1135753",
+                      "text": "text of the second question",
+                      "createdAt": "2021-08-19T04:20:57.538+0000",
+                      "__v": 0
+                    },
+                    {
+                      "description_image": "#",
+                      "_id": "611ddc28dfa66d6cd113574f",
+                      "text": "text of the first question",
+                      "createdAt": "2021-08-19T04:20:56.723+0000",
+                      "__v": 0
+                    },
+                    {
+                      "description_image": "#",
+                      "_id": "611dbb172dff966ff7db9fd8",
+                      "text": "this is the second question2",
+                      "createdAt": "2021-08-19T01:59:51.823+0000",
+                      "__v": 0
+                    },
+                    {
+                      "description_image": "#",
+                      "_id": "611dbb162dff966ff7db9fd4",
+                      "text": "this is the first question2",
+                      "createdAt": "2021-08-19T01:59:50.998+0000",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/questions"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"count\": 4,\n\n  \"pagination\": {},\n\n  \"data\": [\n\n    {\n\n      \"description_image\": \"#\",\n\n      \"_id\": \"611ddc29dfa66d6cd1135753\",\n\n      \"text\": \"text of the second question\",\n\n      \"createdAt\": \"2021-08-19T04:20:57.538Z\",\n\n      \"__v\": 0\n\n    },\n\n    {\n\n      \"description_image\": \"#\",\n\n      \"_id\": \"611ddc28dfa66d6cd113574f\",\n\n      \"text\": \"text of the first question\",\n\n      \"createdAt\": \"2021-08-19T04:20:56.723Z\",\n\n      \"__v\": 0\n\n    },\n\n    {\n\n      \"description_image\": \"#\",\n\n      \"_id\": \"611dbb172dff966ff7db9fd8\",\n\n      \"text\": \"this is the second question2\",\n\n      \"createdAt\": \"2021-08-19T01:59:51.823Z\",\n\n      \"__v\": 0\n\n    },\n\n    {\n\n      \"description_image\": \"#\",\n\n      \"_id\": \"611dbb162dff966ff7db9fd4\",\n\n      \"text\": \"this is the first question2\",\n\n      \"createdAt\": \"2021-08-19T01:59:50.998Z\",\n\n      \"__v\": 0\n\n    }\n\n  ]\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all questions",
+            "x-testDescription": "### Get all questions\nreturns a list of all the questions of all the surveys\n\n**protected route** : no\n\n**parameters** : none"
+          }
+        ]
+      }
+    },
+    "/questions/{id}": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Get question by id",
+        "description": "### Get a question by id\nreturns a question object corresponding to the id (or an empty object if id is not valid)\n\n**protected route** : no\n\n**parameters** : id",
+        "operationId": "Getquestionbyid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getquestionbyid2"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "description_image": "#",
+                    "_id": "611ddc29dfa66d6cd1135753",
+                    "text": "text of the second question",
+                    "createdAt": "2021-08-19T04:20:57.538+0000",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getquestionbyid1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Wrong request format"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/questions/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"description_image\": \"#\",\n\n    \"_id\": \"611ddc29dfa66d6cd1135753\",\n\n    \"text\": \"text of the second question\",\n\n    \"createdAt\": \"2021-08-19T04:20:57.538Z\",\n\n    \"__v\": 0\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get question by id",
+            "x-testDescription": "### Get a question by id\nreturns a question object corresponding to the id (or an empty object if id is not valid)\n\n**protected route** : no\n\n**parameters** : id"
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Update a question",
+        "description": "### Update a question\nupdate static fields of question (text)\n\n**protected route** : yes\n\n**parameters** : Object (new question attribute)",
+        "operationId": "Updateaquestion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatequestionRequest"
+              },
+              "example": {
+                "text": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Updateaquestion2"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "description_image": "#",
+                    "_id": "611ddc28dfa66d6cd113574f",
+                    "text": "this is the updated text",
+                    "createdAt": "2021-08-19T04:20:56.723+0000",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Updateaquestion1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/questions/null",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"text\": \"\"\n\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"description_image\": \"#\",\n\n    \"_id\": \"611ddc28dfa66d6cd113574f\",\n\n    \"text\": \"this is the updated text\",\n\n    \"createdAt\": \"2021-08-19T04:20:56.723Z\",\n\n    \"__v\": 0\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Update a question",
+            "x-testDescription": "### Update a question\nupdate static fields of question (text)\n\n**protected route** : yes\n\n**parameters** : Object (new question attribute)"
+          }
+        ]
+      }
+    },
+    "/questions/survey/{id}": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Get all questions of a survey",
+        "description": "### Get all questions of a survey\nreturns an array of questions corresponding to the id of the survey.\n\n**protected route** : no\n\n**parameters** : id of survey",
+        "operationId": "Getallquestionsofasurvey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallquestionsofasurvey"
+                },
+                "example": {
+                  "success": true,
+                  "count": 2,
+                  "data": [
+                    {
+                      "_id": "611ddc28dfa66d6cd113574f",
+                      "text": "text of the first question"
+                    },
+                    {
+                      "_id": "611ddc29dfa66d6cd1135753",
+                      "text": "text of the second question"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/questions/survey/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"count\": 2,\n\n  \"data\": [\n\n    {\n\n      \"_id\": \"611ddc28dfa66d6cd113574f\",\n\n      \"text\": \"text of the first question\"\n\n    },\n\n    {\n\n      \"_id\": \"611ddc29dfa66d6cd1135753\",\n\n      \"text\": \"text of the second question\"\n\n    }\n\n  ]\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all questions of a survey",
+            "x-testDescription": "### Get all questions of a survey\nreturns an array of questions corresponding to the id of the survey.\n\n**protected route** : no\n\n**parameters** : id of survey"
+          }
+        ]
+      }
+    },
+    "/questions/{id}/image": {
+      "put": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Upload description image to question",
+        "description": "### Upload description image to question\nupdate the field url of question and upload the image on static files third party service\n\n**protected route** : yes\n\n**parameters** : file (image)",
+        "operationId": "Uploaddescriptionimagetoquestion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Uploaddescriptionimagetoquestion2"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629349868/nwirza7m6fszoi2uvaqg.jpg",
+                    "_id": "611ddc29dfa66d6cd1135753",
+                    "text": "text of the second question",
+                    "createdAt": "2021-08-19T04:20:57.538+0000",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Uploaddescriptionimagetoquestion1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/questions/null/image"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"description_image\": \"http://res.cloudinary.com/donifk2pu/image/upload/v1629349868/nwirza7m6fszoi2uvaqg.jpg\",\n\n    \"_id\": \"611ddc29dfa66d6cd1135753\",\n\n    \"text\": \"text of the second question\",\n\n    \"createdAt\": \"2021-08-19T04:20:57.538Z\",\n\n    \"__v\": 0\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Upload description image to question",
+            "x-testDescription": "### Upload description image to question\nupdate the field url of question and upload the image on static files third party service\n\n**protected route** : yes\n\n**parameters** : file (image)"
+          }
+        ]
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth (admin only)"
+        ],
+        "summary": "Register",
+        "description": "### Register\nregister user (to be removed in production and is only here for testing purposes).\n\n**protected route** : no\n\n**parameters** : Object(email ,password)",
+        "operationId": "Register",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": "{ \"name\" : \"\", \"email\" : \"\", \"password\" : \"\"\n\n}"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Register2"
+                },
+                "example": {
+                  "success": true,
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWRlY2Q5NTA4NTc4MGE5ZDAxMmM4ZCIsImlhdCI6MTYyOTM1MTEyOSwiZXhwIjoxNjMxOTQzMTI5fQ.oInywP2svlFk0lIFGNZH-52uqAInID7g4wmWnU3kLHI"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Register1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Please add a name,Please add a password"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/register",
+              "headers": {
+                "Content-Type": "application/json"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWRlY2Q5NTA4NTc4MGE5ZDAxMmM4ZCIsImlhdCI6MTYyOTM1MTEyOSwiZXhwIjoxNjMxOTQzMTI5fQ.oInywP2svlFk0lIFGNZH-52uqAInID7g4wmWnU3kLHI\"\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Register",
+            "x-testDescription": "### Register\nregister user (to be removed in production and is only here for testing purposes).\n\n**protected route** : no\n\n**parameters** : Object(email ,password)"
+          }
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth (admin only)"
+        ],
+        "summary": "Login",
+        "operationId": "Login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": "{ \"email\" : \"\", \"password\" : \"\"\n\n}"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Login2"
+                },
+                "example": {
+                  "success": true,
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWRlY2Q5NTA4NTc4MGE5ZDAxMmM4ZCIsImlhdCI6MTYyOTM1MTI5NywiZXhwIjoxNjMxOTQzMjk3fQ.KnwhLrjMEtYc6aB3KiuPAIEPvBptPOnSWnEN6AquTUY"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Login1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Invalid credentials"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/login",
+              "headers": {
+                "Content-Type": "application/json"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWRlY2Q5NTA4NTc4MGE5ZDAxMmM4ZCIsImlhdCI6MTYyOTM1MTI5NywiZXhwIjoxNjMxOTQzMjk3fQ.KnwhLrjMEtYc6aB3KiuPAIEPvBptPOnSWnEN6AquTUY\"\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Login"
+          }
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth (admin only)"
+        ],
+        "summary": "Logout",
+        "description": "### Logout\ninvalidate token.\n\n**protected route** : yes\n\n**parameters** : none",
+        "operationId": "Logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Logout2"
+                },
+                "example": {
+                  "success": true,
+                  "data": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Logout1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/logout"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {}\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Logout",
+            "x-testDescription": "### Logout\ninvalidate token.\n\n**protected route** : yes\n\n**parameters** : none"
+          }
+        ]
+      }
+    },
+    "/auth/forgotpassword": {
+      "post": {
+        "tags": [
+          "Auth (admin only)"
+        ],
+        "summary": "Forgot password",
+        "description": "### Forgot password\nsends email for password reset.\n\n**protected route** : no\n\n**parameters** : Object(email)",
+        "operationId": "Forgotpassword",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": "{ \"email\" : \"\"\n\n}"
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forgotpassword1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "There is no user with that email"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": []
+      }
+    },
+    "/auth/resetpassword/{accesstoken}": {
+      "put": {
+        "tags": [
+          "Auth (admin only)"
+        ],
+        "summary": "Reset password",
+        "description": "### Reset password\nreset password from link sent by email\n\n**protected route** : no\n\n**parameters** : access token",
+        "operationId": "Resetpassword",
+        "parameters": [
+          {
+            "name": "accesstoken",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetpasswordRequest"
+              },
+              "example": {
+                "password": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {}
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/auth/resetpassword/null",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"password\": \"\"\n\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Reset password",
+            "x-testDescription": "### Reset password\nreset password from link sent by email\n\n**protected route** : no\n\n**parameters** : access token"
+          }
+        ]
+      }
+    },
+    "/entries": {
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Get all entries",
+        "description": "### Get all entries \nreturn a list of all entries (results of the surveys)\n\n**protected route** : yes\n\n**parameters** : none",
+        "operationId": "Getallentries",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallentries2"
+                },
+                "example": {
+                  "success": true,
+                  "count": 3,
+                  "pagination": {},
+                  "data": [
+                    {
+                      "answers": [
+                        {
+                          "_id": "611dde4fdfa66d6cd113576e",
+                          "text": "text of the first question",
+                          "answer": true,
+                          "question": "611ddc28dfa66d6cd113574f",
+                          "__v": 0
+                        }
+                      ],
+                      "_id": "611dde4edfa66d6cd113576b",
+                      "createdAt": "2021-08-19T04:30:06.924+0000",
+                      "__v": 0
+                    },
+                    {
+                      "answers": [
+                        {
+                          "_id": "611dde04dfa66d6cd1135760",
+                          "text": "text of the first question",
+                          "answer": true,
+                          "question": "611ddc28dfa66d6cd113574f",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "611dde05dfa66d6cd1135763",
+                          "text": "text of the second question",
+                          "answer": false,
+                          "question": "611ddc29dfa66d6cd1135753",
+                          "__v": 0
+                        }
+                      ],
+                      "_id": "611dde04dfa66d6cd113575d",
+                      "createdAt": "2021-08-19T04:28:52.577+0000",
+                      "__v": 0
+                    },
+                    {
+                      "answers": [
+                        {
+                          "_id": "611dbb4a2dff966ff7db9fe2",
+                          "text": "this is the second question2",
+                          "answer": true,
+                          "question": "611dbb172dff966ff7db9fd8",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "611dbb4c2dff966ff7db9fe5",
+                          "text": "this is the first question2",
+                          "answer": true,
+                          "question": "611dbb162dff966ff7db9fd4",
+                          "__v": 0
+                        }
+                      ],
+                      "_id": "611dbb492dff966ff7db9fdf",
+                      "createdAt": "2021-08-19T02:00:41.790+0000",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallentries1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/entries"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"count\": 3,\n\n  \"pagination\": {},\n\n  \"data\": [\n\n    {\n\n      \"answers\": [\n\n        {\n\n          \"_id\": \"611dde4fdfa66d6cd113576e\",\n\n          \"text\": \"text of the first question\",\n\n          \"answer\": true,\n\n          \"question\": \"611ddc28dfa66d6cd113574f\",\n\n          \"__v\": 0\n\n        }\n\n      ],\n\n      \"_id\": \"611dde4edfa66d6cd113576b\",\n\n      \"createdAt\": \"2021-08-19T04:30:06.924Z\",\n\n      \"__v\": 0\n\n    },\n\n    {\n\n      \"answers\": [\n\n        {\n\n          \"_id\": \"611dde04dfa66d6cd1135760\",\n\n          \"text\": \"text of the first question\",\n\n          \"answer\": true,\n\n          \"question\": \"611ddc28dfa66d6cd113574f\",\n\n          \"__v\": 0\n\n        },\n\n        {\n\n          \"_id\": \"611dde05dfa66d6cd1135763\",\n\n          \"text\": \"text of the second question\",\n\n          \"answer\": false,\n\n          \"question\": \"611ddc29dfa66d6cd1135753\",\n\n          \"__v\": 0\n\n        }\n\n      ],\n\n      \"_id\": \"611dde04dfa66d6cd113575d\",\n\n      \"createdAt\": \"2021-08-19T04:28:52.577Z\",\n\n      \"__v\": 0\n\n    },\n\n    {\n\n      \"answers\": [\n\n        {\n\n          \"_id\": \"611dbb4a2dff966ff7db9fe2\",\n\n          \"text\": \"this is the second question2\",\n\n          \"answer\": true,\n\n          \"question\": \"611dbb172dff966ff7db9fd8\",\n\n          \"__v\": 0\n\n        },\n\n        {\n\n          \"_id\": \"611dbb4c2dff966ff7db9fe5\",\n\n          \"text\": \"this is the first question2\",\n\n          \"answer\": true,\n\n          \"question\": \"611dbb162dff966ff7db9fd4\",\n\n          \"__v\": 0\n\n        }\n\n      ],\n\n      \"_id\": \"611dbb492dff966ff7db9fdf\",\n\n      \"createdAt\": \"2021-08-19T02:00:41.79Z\",\n\n      \"__v\": 0\n\n    }\n\n  ]\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all entries",
+            "x-testDescription": "### Get all entries \nreturn a list of all entries (results of the surveys)\n\n**protected route** : yes\n\n**parameters** : none"
+          }
+        ]
+      }
+    },
+    "/entries/{id}": {
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Get entry by id",
+        "description": "### Get an entry by id\nreturn an entry object with the corresponding id\n\n**protected route** : yes\n**parameters** : none",
+        "operationId": "Getentrybyid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getentrybyid2"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "answers": [
+                      {
+                        "_id": "611dde4fdfa66d6cd113576e",
+                        "text": "text of the first question",
+                        "answer": true,
+                        "question": "611ddc28dfa66d6cd113574f",
+                        "__v": 0
+                      }
+                    ],
+                    "_id": "611dde4edfa66d6cd113576b",
+                    "createdAt": "2021-08-19T04:30:06.924+0000",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getentrybyid1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/entries/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"answers\": [\n\n      {\n\n        \"_id\": \"611dde4fdfa66d6cd113576e\",\n\n        \"text\": \"text of the first question\",\n\n        \"answer\": true,\n\n        \"question\": \"611ddc28dfa66d6cd113574f\",\n\n        \"__v\": 0\n\n      }\n\n    ],\n\n    \"_id\": \"611dde4edfa66d6cd113576b\",\n\n    \"createdAt\": \"2021-08-19T04:30:06.924Z\",\n\n    \"__v\": 0\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get entry by id",
+            "x-testDescription": "### Get an entry by id\nreturn an entry object with the corresponding id\n\n**protected route** : yes\n**parameters** : none"
+          }
+        ]
+      }
+    },
+    "/entries/survey/{id}": {
+      "get": {
+        "tags": [
+          "Entries"
+        ],
+        "summary": "Get all entries of a survey",
+        "description": "### Get all the entries of a survey\nreturns the list of all entries of the specified survey\n\n**protected route*** : yes\n\n**parameters** : id of survey",
+        "operationId": "Getallentriesofasurvey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallentriesofasurvey2"
+                },
+                "example": {
+                  "success": true,
+                  "count": 1,
+                  "data": [
+                    {
+                      "answers": [
+                        {
+                          "_id": "611dde04dfa66d6cd1135760",
+                          "text": "text of the first question",
+                          "answer": true
+                        },
+                        {
+                          "_id": "611dde05dfa66d6cd1135763",
+                          "text": "text of the second question",
+                          "answer": false
+                        }
+                      ],
+                      "_id": "611dde04dfa66d6cd113575d",
+                      "createdAt": "2021-08-19T04:28:52.577+0000",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallentriesofasurvey1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/entries/survey/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"count\": 1,\n\n  \"data\": [\n\n    {\n\n      \"answers\": [\n\n        {\n\n          \"_id\": \"611dde04dfa66d6cd1135760\",\n\n          \"text\": \"text of the first question\",\n\n          \"answer\": true\n\n        },\n\n        {\n\n          \"_id\": \"611dde05dfa66d6cd1135763\",\n\n          \"text\": \"text of the second question\",\n\n          \"answer\": false\n\n        }\n\n      ],\n\n      \"_id\": \"611dde04dfa66d6cd113575d\",\n\n      \"createdAt\": \"2021-08-19T04:28:52.577Z\",\n\n      \"__v\": 0\n\n    }\n\n  ]\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all entries of a survey",
+            "x-testDescription": "### Get all the entries of a survey\nreturns the list of all entries of the specified survey\n\n**protected route*** : yes\n\n**parameters** : id of survey"
+          }
+        ]
+      }
+    },
+    "/answers": {
+      "get": {
+        "tags": [
+          "Answers"
+        ],
+        "summary": "Get all answers",
+        "description": "### Get all answers\nreturn an array of all answers (generated from entries)\n\n**protected route** : yes\n\n**parameters** : none",
+        "operationId": "Getallanswers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallanswers2"
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallanswers1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": []
+      }
+    },
+    "/answers/{id}": {
+      "get": {
+        "tags": [
+          "Answers"
+        ],
+        "summary": "Get answer by id",
+        "description": "### Get answer by id\nreturns answer object corresponding to id otherwise returns an empty object\n\n**protected route** : yes\n\n**parameters** : id",
+        "operationId": "Getanswerbyid",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getanswerbyid"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "_id": "611dbb4a2dff966ff7db9fe2",
+                    "text": "this is the second question2",
+                    "answer": true,
+                    "question": "611dbb172dff966ff7db9fd8",
+                    "__v": 0
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getanswerbyid2"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/answers/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"data\": {\n\n    \"_id\": \"611dbb4a2dff966ff7db9fe2\",\n\n    \"text\": \"this is the second question2\",\n\n    \"answer\": true,\n\n    \"question\": \"611dbb172dff966ff7db9fd8\",\n\n    \"__v\": 0\n\n  }\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get answer by id",
+            "x-testDescription": "### Get answer by id\nreturns answer object corresponding to id otherwise returns an empty object\n\n**protected route** : yes\n\n**parameters** : id"
+          }
+        ]
+      }
+    },
+    "/answers/question/{id}": {
+      "get": {
+        "tags": [
+          "Answers"
+        ],
+        "summary": "Get all answers of a question",
+        "description": "### Get all answers of a questions\nreturn an array of all answers of the question through entries\n\n**protected route** : yes\n\n**parameters** : id of question",
+        "operationId": "Getallanswersofaquestion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallanswersofaquestion2"
+                },
+                "example": {
+                  "success": true,
+                  "count": 2,
+                  "data": [
+                    {
+                      "_id": "611dde04dfa66d6cd1135760",
+                      "text": "text of the first question",
+                      "answer": true,
+                      "question": "611ddc28dfa66d6cd113574f",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "611dde4fdfa66d6cd113576e",
+                      "text": "text of the first question",
+                      "answer": true,
+                      "question": "611ddc28dfa66d6cd113574f",
+                      "__v": 0
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getallanswersofaquestion1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/answers/question/null"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"count\": 2,\n\n  \"data\": [\n\n    {\n\n      \"_id\": \"611dde04dfa66d6cd1135760\",\n\n      \"text\": \"text of the first question\",\n\n      \"answer\": true,\n\n      \"question\": \"611ddc28dfa66d6cd113574f\",\n\n      \"__v\": 0\n\n    },\n\n    {\n\n      \"_id\": \"611dde4fdfa66d6cd113576e\",\n\n      \"text\": \"text of the first question\",\n\n      \"answer\": true,\n\n      \"question\": \"611ddc28dfa66d6cd113574f\",\n\n      \"__v\": 0\n\n    }\n\n  ]\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all answers of a question",
+            "x-testDescription": "### Get all answers of a questions\nreturn an array of all answers of the question through entries\n\n**protected route** : yes\n\n**parameters** : id of question"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ListOfSurveys": {
+        "title": "ListOfSurveys",
+        "required": [
+          "count",
+          "data",
+          "pagination",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pagination": {
+            "type": "object"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Survey"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 2,
+          "pagination": {},
+          "data": [
+            {
+              "questions": [
+                {
+                  "description_image": "#",
+                  "_id": "611dbb162dff966ff7db9fd4",
+                  "text": "this is the first question2",
+                  "createdAt": "2021-08-19T01:59:50.998+0000",
+                  "__v": 0
+                },
+                {
+                  "description_image": "#",
+                  "_id": "611dbb172dff966ff7db9fd8",
+                  "text": "this is the second question2",
+                  "createdAt": "2021-08-19T01:59:51.823+0000",
+                  "__v": 0
+                }
+              ],
+              "_id": "611dbb162dff966ff7db9fd2",
+              "name": "survey2",
+              "description": "description2"
+            },
+            {
+              "questions": [
+                {
+                  "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg",
+                  "_id": "611db933aab9cc6ab4912a2d",
+                  "text": "updated text",
+                  "createdAt": "2021-08-19T01:51:47.590+0000",
+                  "__v": 0
+                },
+                {
+                  "description_image": "#",
+                  "_id": "611db934aab9cc6ab4912a31",
+                  "text": "this is the second question",
+                  "createdAt": "2021-08-19T01:51:48.419+0000",
+                  "__v": 0
+                }
+              ],
+              "_id": "611db933aab9cc6ab4912a2b",
+              "name": "survey",
+              "description": "description"
+            }
+          ]
+        }
+      },
+      "Survey": {
+        "title": "Survey",
+        "required": [
+          "_id",
+          "description",
+          "name",
+          "questions"
+        ],
+        "type": "object",
+        "properties": {
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "questions": [
+            {
+              "description_image": "#",
+              "_id": "611dbb162dff966ff7db9fd4",
+              "text": "this is the first question2",
+              "createdAt": "2021-08-19T01:59:50.998+0000",
+              "__v": 0
+            },
+            {
+              "description_image": "#",
+              "_id": "611dbb172dff966ff7db9fd8",
+              "text": "this is the second question2",
+              "createdAt": "2021-08-19T01:59:51.823+0000",
+              "__v": 0
+            }
+          ],
+          "_id": "611dbb162dff966ff7db9fd2",
+          "name": "survey2",
+          "description": "description2"
+        }
+      },
+      "Question": {
+        "title": "Question",
+        "required": [
+          "__v",
+          "_id",
+          "createdAt",
+          "description_image",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "description_image": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "description_image": "#",
+          "_id": "611dbb162dff966ff7db9fd4",
+          "text": "this is the first question2",
+          "createdAt": "2021-08-19T01:59:50.998+0000",
+          "__v": 0
+        }
+      },
+      "ListOfSurveys1": {
+        "title": "ListOfSurveys1",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Survey1"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "questions": [
+              {
+                "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg",
+                "_id": "611db933aab9cc6ab4912a2d",
+                "text": "updated text",
+                "createdAt": "2021-08-19T01:51:47.590+0000",
+                "__v": 0
+              },
+              {
+                "description_image": "#",
+                "_id": "611db934aab9cc6ab4912a31",
+                "text": "this is the second question",
+                "createdAt": "2021-08-19T01:51:48.419+0000",
+                "__v": 0
+              }
+            ],
+            "_id": "611db933aab9cc6ab4912a2b",
+            "name": "survey",
+            "description": "description"
+          }
+        }
+      },
+      "Survey1": {
+        "title": "Survey1",
+        "required": [
+          "_id",
+          "description",
+          "name",
+          "questions"
+        ],
+        "type": "object",
+        "properties": {
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "questions": [
+            {
+              "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629341203/gqi4a8kvep8wlbshb2h6.jpg",
+              "_id": "611db933aab9cc6ab4912a2d",
+              "text": "updated text",
+              "createdAt": "2021-08-19T01:51:47.590+0000",
+              "__v": 0
+            },
+            {
+              "description_image": "#",
+              "_id": "611db934aab9cc6ab4912a31",
+              "text": "this is the second question",
+              "createdAt": "2021-08-19T01:51:48.419+0000",
+              "__v": 0
+            }
+          ],
+          "_id": "611db933aab9cc6ab4912a2b",
+          "name": "survey",
+          "description": "description"
+        }
+      },
+      "UpdatedSurvey": {
+        "title": "UpdatedSurvey",
+        "required": [
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "",
+          "description": ""
+        }
+      },
+      "UpdatequestionRequest": {
+        "title": "UpdatequestionRequest",
+        "required": [
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "text": ""
+        }
+      },
+      "Updateasurvey": {
+        "title": "Updateasurvey",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UpdatedSurvey1"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "_id": "611db933aab9cc6ab4912a2b",
+            "name": "updated name",
+            "description": "updated desc"
+          }
+        }
+      },
+      "UpdatedSurvey1": {
+        "title": "UpdatedSurvey1",
+        "required": [
+          "_id",
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "_id": "611db933aab9cc6ab4912a2b",
+          "name": "updated name",
+          "description": "updated desc"
+        }
+      },
+      "Updateasurvey2": {
+        "title": "Updateasurvey2",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Deletesurvey1": {
+        "title": "Deletesurvey1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "DeleteSurveyMessage2": {
+        "title": "DeleteSurveyMessage2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {}
+        }
+      },
+      "CreateasurveyRequest": {
+        "title": "CreateasurveyRequest",
+        "required": [
+          "description",
+          "name",
+          "questions"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "name": "",
+          "description": "",
+          "questions": []
+        }
+      },
+      "Createasurvey": {
+        "title": "Createasurvey",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Survey2"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "questions": [
+              {
+                "_id": "611ddc28dfa66d6cd113574f",
+                "text": "text of the first question"
+              },
+              {
+                "_id": "611ddc29dfa66d6cd1135753",
+                "text": "text of the second question"
+              }
+            ],
+            "_id": "611ddc28dfa66d6cd113574d",
+            "name": "name",
+            "description": "description"
+          }
+        }
+      },
+      "Survey2": {
+        "title": "Survey2",
+        "required": [
+          "_id",
+          "description",
+          "name",
+          "questions"
+        ],
+        "type": "object",
+        "properties": {
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question2"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "questions": [
+            {
+              "_id": "611ddc28dfa66d6cd113574f",
+              "text": "text of the first question"
+            },
+            {
+              "_id": "611ddc29dfa66d6cd1135753",
+              "text": "text of the second question"
+            }
+          ],
+          "_id": "611ddc28dfa66d6cd113574d",
+          "name": "name",
+          "description": "description"
+        }
+      },
+      "Question2": {
+        "title": "Question2",
+        "required": [
+          "_id",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "_id": "611ddc28dfa66d6cd113574f",
+          "text": "text of the first question"
+        }
+      },
+      "Createasurvey2": {
+        "title": "Createasurvey2",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Survey cannot have no questions"
+        }
+      },
+      "TakeasurveyRequest": {
+        "title": "TakeasurveyRequest",
+        "required": [
+          "answers"
+        ],
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "answers": []
+        }
+      },
+      "Takeasurvey": {
+        "title": "Takeasurvey",
+        "required": [
+          "data",
+          "message",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Entry"
+          }
+        },
+        "example": {
+          "success": true,
+          "message": "Entry saved",
+          "data": {
+            "answers": [
+              {
+                "_id": "611dde04dfa66d6cd1135760",
+                "text": "text of the first question",
+                "answer": true
+              },
+              {
+                "_id": "611dde05dfa66d6cd1135763",
+                "text": "text of the second question",
+                "answer": false
+              }
+            ],
+            "_id": "611dde04dfa66d6cd113575d",
+            "createdAt": "2021-08-19T04:28:52.577+0000",
+            "__v": 0
+          }
+        }
+      },
+      "Entry": {
+        "title": "Entry",
+        "required": [
+          "__v",
+          "_id",
+          "answers",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Answer"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "answers": [
+            {
+              "_id": "611dde04dfa66d6cd1135760",
+              "text": "text of the first question",
+              "answer": true
+            },
+            {
+              "_id": "611dde05dfa66d6cd1135763",
+              "text": "text of the second question",
+              "answer": false
+            }
+          ],
+          "_id": "611dde04dfa66d6cd113575d",
+          "createdAt": "2021-08-19T04:28:52.577+0000",
+          "__v": 0
+        }
+      },
+      "Answer": {
+        "title": "Answer",
+        "required": [
+          "_id",
+          "answer",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "boolean"
+          }
+        },
+        "example": {
+          "_id": "611dde04dfa66d6cd1135760",
+          "text": "text of the first question",
+          "answer": true
+        }
+      },
+      "Takeasurvey2": {
+        "title": "Takeasurvey2",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Missing answer to question with id 611ddc29dfa66d6cd1135753"
+        }
+      },
+      "Getallquestions": {
+        "title": "Getallquestions",
+        "required": [
+          "count",
+          "data",
+          "pagination",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pagination": {
+            "type": "object"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 4,
+          "pagination": {},
+          "data": [
+            {
+              "description_image": "#",
+              "_id": "611ddc29dfa66d6cd1135753",
+              "text": "text of the second question",
+              "createdAt": "2021-08-19T04:20:57.538+0000",
+              "__v": 0
+            },
+            {
+              "description_image": "#",
+              "_id": "611ddc28dfa66d6cd113574f",
+              "text": "text of the first question",
+              "createdAt": "2021-08-19T04:20:56.723+0000",
+              "__v": 0
+            },
+            {
+              "description_image": "#",
+              "_id": "611dbb172dff966ff7db9fd8",
+              "text": "this is the second question2",
+              "createdAt": "2021-08-19T01:59:51.823+0000",
+              "__v": 0
+            },
+            {
+              "description_image": "#",
+              "_id": "611dbb162dff966ff7db9fd4",
+              "text": "this is the first question2",
+              "createdAt": "2021-08-19T01:59:50.998+0000",
+              "__v": 0
+            }
+          ]
+        }
+      },
+      "Question3": {
+        "title": "Question3",
+        "required": [
+          "__v",
+          "_id",
+          "createdAt",
+          "description_image",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "description_image": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "description_image": "#",
+          "_id": "611ddc29dfa66d6cd1135753",
+          "text": "text of the second question",
+          "createdAt": "2021-08-19T04:20:57.538+0000",
+          "__v": 0
+        }
+      },
+      "Getquestionbyid1": {
+        "title": "Getquestionbyid1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Wrong request format"
+        }
+      },
+      "Getquestionbyid2": {
+        "title": "Getquestionbyid2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Question"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "description_image": "#",
+            "_id": "611ddc29dfa66d6cd1135753",
+            "text": "text of the second question",
+            "createdAt": "2021-08-19T04:20:57.538+0000",
+            "__v": 0
+          }
+        }
+      },
+      "Getallquestionsofasurvey": {
+        "title": "Getallquestionsofasurvey",
+        "required": [
+          "count",
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Data6"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 2,
+          "data": [
+            {
+              "_id": "611ddc28dfa66d6cd113574f",
+              "text": "text of the first question"
+            },
+            {
+              "_id": "611ddc29dfa66d6cd1135753",
+              "text": "text of the second question"
+            }
+          ]
+        }
+      },
+      "Data6": {
+        "title": "Data6",
+        "required": [
+          "_id",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "_id": "611ddc28dfa66d6cd113574f",
+          "text": "text of the first question"
+        }
+      },
+      "UpdateaquestionRequest": {
+        "title": "UpdateaquestionRequest",
+        "required": [
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "text": ""
+        }
+      },
+      "Updateaquestion1": {
+        "title": "Updateaquestion1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Updateaquestion2": {
+        "title": "Updateaquestion2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Question"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "description_image": "#",
+            "_id": "611ddc28dfa66d6cd113574f",
+            "text": "this is the updated text",
+            "createdAt": "2021-08-19T04:20:56.723+0000",
+            "__v": 0
+          }
+        }
+      },
+      "Uploaddescriptionimagetoquestion1": {
+        "title": "Uploaddescriptionimagetoquestion1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Uploaddescriptionimagetoquestion2": {
+        "title": "Uploaddescriptionimagetoquestion2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Question"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "description_image": "http://res.cloudinary.com/donifk2pu/image/upload/v1629349868/nwirza7m6fszoi2uvaqg.jpg",
+            "_id": "611ddc29dfa66d6cd1135753",
+            "text": "text of the second question",
+            "createdAt": "2021-08-19T04:20:57.538+0000",
+            "__v": 0
+          }
+        }
+      },
+      "Register1": {
+        "title": "Register1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Please add a name,Please add a password"
+        }
+      },
+      "Register2": {
+        "title": "Register2",
+        "required": [
+          "success",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": true,
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWRlY2Q5NTA4NTc4MGE5ZDAxMmM4ZCIsImlhdCI6MTYyOTM1MTEyOSwiZXhwIjoxNjMxOTQzMTI5fQ.oInywP2svlFk0lIFGNZH-52uqAInID7g4wmWnU3kLHI"
+        }
+      },
+      "Login1": {
+        "title": "Login1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Invalid credentials"
+        }
+      },
+      "Login2": {
+        "title": "Login2",
+        "required": [
+          "success",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": true,
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWRlY2Q5NTA4NTc4MGE5ZDAxMmM4ZCIsImlhdCI6MTYyOTM1MTI5NywiZXhwIjoxNjMxOTQzMjk3fQ.KnwhLrjMEtYc6aB3KiuPAIEPvBptPOnSWnEN6AquTUY"
+        }
+      },
+      "Logout1": {
+        "title": "Logout1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Logout2": {
+        "title": "Logout2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {}
+        }
+      },
+      "Forgotpassword1": {
+        "title": "Forgotpassword1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "There is no user with that email"
+        }
+      },
+      "ResetpasswordRequest": {
+        "title": "ResetpasswordRequest",
+        "required": [
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "password": ""
+        }
+      },
+      "Getallentries1": {
+        "title": "Getallentries1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getallentries2": {
+        "title": "Getallentries2",
+        "required": [
+          "count",
+          "data",
+          "pagination",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pagination": {
+            "type": "object"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Data9"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 3,
+          "pagination": {},
+          "data": [
+            {
+              "answers": [
+                {
+                  "_id": "611dde4fdfa66d6cd113576e",
+                  "text": "text of the first question",
+                  "answer": true,
+                  "question": "611ddc28dfa66d6cd113574f",
+                  "__v": 0
+                }
+              ],
+              "_id": "611dde4edfa66d6cd113576b",
+              "createdAt": "2021-08-19T04:30:06.924+0000",
+              "__v": 0
+            },
+            {
+              "answers": [
+                {
+                  "_id": "611dde04dfa66d6cd1135760",
+                  "text": "text of the first question",
+                  "answer": true,
+                  "question": "611ddc28dfa66d6cd113574f",
+                  "__v": 0
+                },
+                {
+                  "_id": "611dde05dfa66d6cd1135763",
+                  "text": "text of the second question",
+                  "answer": false,
+                  "question": "611ddc29dfa66d6cd1135753",
+                  "__v": 0
+                }
+              ],
+              "_id": "611dde04dfa66d6cd113575d",
+              "createdAt": "2021-08-19T04:28:52.577+0000",
+              "__v": 0
+            },
+            {
+              "answers": [
+                {
+                  "_id": "611dbb4a2dff966ff7db9fe2",
+                  "text": "this is the second question2",
+                  "answer": true,
+                  "question": "611dbb172dff966ff7db9fd8",
+                  "__v": 0
+                },
+                {
+                  "_id": "611dbb4c2dff966ff7db9fe5",
+                  "text": "this is the first question2",
+                  "answer": true,
+                  "question": "611dbb162dff966ff7db9fd4",
+                  "__v": 0
+                }
+              ],
+              "_id": "611dbb492dff966ff7db9fdf",
+              "createdAt": "2021-08-19T02:00:41.790+0000",
+              "__v": 0
+            }
+          ]
+        }
+      },
+      "Data9": {
+        "title": "Data9",
+        "required": [
+          "__v",
+          "_id",
+          "answers",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Answer1"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "answers": [
+            {
+              "_id": "611dde4fdfa66d6cd113576e",
+              "text": "text of the first question",
+              "answer": true,
+              "question": "611ddc28dfa66d6cd113574f",
+              "__v": 0
+            }
+          ],
+          "_id": "611dde4edfa66d6cd113576b",
+          "createdAt": "2021-08-19T04:30:06.924+0000",
+          "__v": 0
+        }
+      },
+      "Answer1": {
+        "title": "Answer1",
+        "required": [
+          "__v",
+          "_id",
+          "answer",
+          "question",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "boolean"
+          },
+          "question": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "_id": "611dde4fdfa66d6cd113576e",
+          "text": "text of the first question",
+          "answer": true,
+          "question": "611ddc28dfa66d6cd113574f",
+          "__v": 0
+        }
+      },
+      "Getentrybyid1": {
+        "title": "Getentrybyid1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getentrybyid2": {
+        "title": "Getentrybyid2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data9"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "answers": [
+              {
+                "_id": "611dde4fdfa66d6cd113576e",
+                "text": "text of the first question",
+                "answer": true,
+                "question": "611ddc28dfa66d6cd113574f",
+                "__v": 0
+              }
+            ],
+            "_id": "611dde4edfa66d6cd113576b",
+            "createdAt": "2021-08-19T04:30:06.924+0000",
+            "__v": 0
+          }
+        }
+      },
+      "Getallentriesofasurvey1": {
+        "title": "Getallentriesofasurvey1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getallentriesofasurvey2": {
+        "title": "Getallentriesofasurvey2",
+        "required": [
+          "count",
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 1,
+          "data": [
+            {
+              "answers": [
+                {
+                  "_id": "611dde04dfa66d6cd1135760",
+                  "text": "text of the first question",
+                  "answer": true
+                },
+                {
+                  "_id": "611dde05dfa66d6cd1135763",
+                  "text": "text of the second question",
+                  "answer": false
+                }
+              ],
+              "_id": "611dde04dfa66d6cd113575d",
+              "createdAt": "2021-08-19T04:28:52.577+0000",
+              "__v": 0
+            }
+          ]
+        }
+      },
+      "Getallanswers1": {
+        "title": "Getallanswers1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getanswerbyid": {
+        "title": "Getanswerbyid",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data12"
+          }
+        },
+        "example": {
+          "success": true,
+          "data": {
+            "_id": "611dbb4a2dff966ff7db9fe2",
+            "text": "this is the second question2",
+            "answer": true,
+            "question": "611dbb172dff966ff7db9fd8",
+            "__v": 0
+          }
+        }
+      },
+      "Getallanswers2": {
+        "title": "Getallanswers2",
+        "required": [
+          "count",
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 1,
+          "data": [
+            {
+              "answers": [
+                {
+                  "_id": "611dbb4a2dff966ff7db9fe2",
+                  "text": "text of the first question",
+                  "answer": true,
+                  "question": "611dbb172dff966ff7db9fd8,"
+                },
+                {
+                  "_id": "611dbb4a2dff966ff7db9fe2",
+                  "text": "text of the first question",
+                  "answer": true,
+                  "question": "611dbb172dff966ff7db9fd8,"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "Data12": {
+        "title": "Data12",
+        "required": [
+          "__v",
+          "_id",
+          "answer",
+          "question",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "boolean"
+          },
+          "question": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "_id": "611dbb4a2dff966ff7db9fe2",
+          "text": "this is the second question2",
+          "answer": true,
+          "question": "611dbb172dff966ff7db9fd8",
+          "__v": 0
+        }
+      },
+      "Getanswerbyid2": {
+        "title": "Getanswerbyid2",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getallanswersofaquestion1": {
+        "title": "Getallanswersofaquestion1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getallanswersofaquestion2": {
+        "title": "Getallanswersofaquestion2",
+        "required": [
+          "count",
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Data12"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "count": 2,
+          "data": [
+            {
+              "_id": "611dde04dfa66d6cd1135760",
+              "text": "text of the first question",
+              "answer": true,
+              "question": "611ddc28dfa66d6cd113574f",
+              "__v": 0
+            },
+            {
+              "_id": "611dde4fdfa66d6cd113576e",
+              "text": "text of the first question",
+              "answer": true,
+              "question": "611ddc28dfa66d6cd113574f",
+              "__v": 0
+            }
+          ]
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
