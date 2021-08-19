@@ -159,7 +159,7 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
 
 
 //@desc Get statistics for a question
-//@route GET /api/v1/questions/:id/metrics
+//@route GET /api/v1/questions/:id/stats
 //@access Private
 exports.getQuestionStats = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
@@ -183,7 +183,6 @@ exports.getQuestionStats = asyncHandler(async (req, res, next) => {
             return next(
                 new ErrorResponse(`The question with the id ${req.params.id} have no recorded answers`,
                     404))
-
         }
         let metricsObject = {
             totalAnswers: answers.length,

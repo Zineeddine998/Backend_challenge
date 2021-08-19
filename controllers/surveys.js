@@ -335,3 +335,99 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
 
 
 
+
+
+//@desc Get statistics for a survey
+//@route GET /api/v1/survey/:id/stats
+//@access Private
+exports.getSurveyStats = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    if (!id) {
+        return next(
+            new ErrorResponse(`Missing id field`,
+                400
+            ));
+    }
+    try {
+        const survey = await Survey.findById(id).populate({
+            path: "questions",
+            select: "text"
+        });
+        if (!survey) {
+            return next(
+                new ErrorResponse(`No survey with the id of ${req.params.id}`,
+                    404)
+            );
+        }
+        let questions = survey.questions;
+        if (!Array.isArray(questions) || questions.length == 0) {
+            return next(
+                new ErrorResponse(`The survey with the id ${req.params.id} is empty`,
+                    400))
+        }
+        let statsArray = [];
+        for (let i = 0; i < questions.length; i++) {
+            let questionStats = await getStatsForQuestion(questions[i]._id);
+            statsArray.push({
+                question: questions[i].text,
+                statistics: questionStats
+            });
+
+        }
+        ; res.status(200).json({
+            success: true,
+            data: statsArray
+        });
+    } catch (err) {
+        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+    }
+});
+
+const getStatsForQuestion = async function (id) {
+    if (!id) {
+        return next(
+            new ErrorResponse(`Missing id field`,
+                400
+            ));
+    }
+    try {
+        const answers = await Answer.find({
+            question: id
+        });
+        if (!answers) {
+            return next(
+                new ErrorResponse(`No survey with the id of ${req.params.id}`,
+                    404)
+            );
+        }
+        if (!Array.isArray(answers) || answers.length == 0) {
+            return next(
+                new ErrorResponse(`The question with the id ${req.params.id} have no recorded answers`,
+                    404))
+        }
+        let metricsObject = {
+            totalAnswers: answers.length,
+            answered_true: 0,
+            answered_false: 0,
+            answered_false_percentage: "",
+            answered_true_percentage: "",
+        };
+        let trueAnswers = 0;
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i].answer === true) {
+                trueAnswers++;
+            }
+        }
+        metricsObject.answered_true = trueAnswers;
+        metricsObject.answered_false = answers.length - trueAnswers;
+        const true_percentage = Math.round((metricsObject.answered_true / answers.length) * 100 * 100) / 100;
+        const false_percentage = 100 - true_percentage;
+        metricsObject.answered_true_percentage = true_percentage + '%';
+        metricsObject.answered_false_percentage = false_percentage + '%';
+        return metricsObject;
+    } catch (err) {
+        return next(
+            new ErrorResponse(`Error : ${err.message}`,
+                500))
+    }
+}
