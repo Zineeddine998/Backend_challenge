@@ -9,6 +9,7 @@ const db = require('./config/mongoDB');
 const { configCloudinary } = require('./utils/cloudinary');
 const surveys = require('./routes/surveys');
 const questions = require('./routes/questions');
+const entries = require('./routes/entries');
 const adminAuthentication = require('./routes/adminAuthentication');
 
 dotenv.config({ path: './config/config.env' });
@@ -32,47 +33,18 @@ app.use(fileupload());
 app.use(cookieParser());
 
 app.use('/api/v1/surveys', surveys);
+app.use('/api/v1/entries', entries);
 // app.use('/api/v1/questions', questions);
 app.use('/api/v1/auth', adminAuthentication);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-
-db.connect()
-    .then(() => {
-        app.listen(
-            PORT,
-            console.log(
-                `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-            )
-        );
-
-    })
-// Handle unhandled promise rejections
+db.connect();
+const server = app.listen(PORT, console.log(`Server is running in ${process.env.NODE_ENV} mode on ${PORT}`));
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error : ${err.message}`.red);
-    // Close server & exit process
-    // server.close(() => process.exit(1));
-});
+    console.log(`Error : ${err.message}`);
+    server.close((() => process.exit(1)));
+})
 
 module.exports = app;
 
-
-// for (let i = 0; i < answers.length; i++) {
-//     const { question_id, answer } = answers[i];
-//     let currentQuestion = await Question.findById(question_id);
-//     let newAnswer = await Answer.create({
-//         text: currentQuestion.text,
-//         answer: answer,
-//         question: currentQuestion._id,
-//     });
-//     console.log(newAnswer);
-//     updatedEntry = await Entry.findByIdAndUpdate(
-//         id,
-//         { $push: { answers: newAnswer._id } },
-//         { new: true, useFindAndModify: false }
-//     ).populate({
-//         path: "answers",
-//         select: "text answer"
-//     })
-// }

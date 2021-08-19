@@ -46,7 +46,7 @@ const searchWrapper = (model, populate) => async (req, res, next) => {
 
     query = query.skip(startIndex).limit(limit);
 
-    if (populate && fields && fields.includes(populate)) {
+    if (populate) {
         query = query.populate(populate);
     }
 

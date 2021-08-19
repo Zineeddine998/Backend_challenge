@@ -148,7 +148,6 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
     const filepath = `${process.env.FILE_UPLOAD_PATH}/${file.name}`;
     await file.mv(filepath, async err => {
         if (err) {
-            console.error(err);
             return next(new ErrorResponse(`Problem with file upload`, 500));
         }
     });
@@ -160,7 +159,6 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
             try {
                 fs.unlinkSync(filepath)
             } catch (err) {
-                console.error(err)
             }
             res.status(200).json({
                 success: true,
