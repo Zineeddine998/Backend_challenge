@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./swagger_documentation.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

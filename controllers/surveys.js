@@ -86,7 +86,7 @@ exports.createSurvey = asyncHandler(async (req, res, next) => {
             }
             ).select('name description questions');
         }
-        res.status(200).json({ success: true, data: updatedSurvey });
+        res.status(200).json({ success: true, message: "Survey created", data: updatedSurvey });
     } catch (err) {
         res.status(400).json({ success: false, error: err.message })
     }
@@ -114,6 +114,7 @@ exports.updateSurvey = asyncHandler(async (req, res, next) => {
     }).select('name description')
     res.status(200).json({
         success: true,
+        message: "Survey updated",
         data: survey
     })
 });
@@ -131,6 +132,7 @@ exports.deleteSurvey = asyncHandler(async (req, res, next) => {
     await survey.remove();
     res.status(200).json({
         success: true,
+        message: "Survey deleted",
         data: {}
     })
 });
@@ -240,22 +242,22 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
     }
 })
 
-//@desc delete a survey
-//@route DELETE /api/v1/surveys/:id
-//@access Private
-exports.deleteSurvey = asyncHandler(async (req, res, next) => {
-    let survey = await Survey.findById(req.params.id);
-    if (!survey) {
-        return next(
-            new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
-        )
-    }
-    await survey.remove();
-    res.status(200).json({
-        success: true,
-        data: {}
-    })
-});
+// //@desc delete a survey
+// //@route DELETE /api/v1/surveys/:id
+// //@access Private
+// exports.deleteSurvey = asyncHandler(async (req, res, next) => {
+//     let survey = await Survey.findById(req.params.id);
+//     if (!survey) {
+//         return next(
+//             new ErrorResponse(`No survey with the id of ${req.params.id}`), 404
+//         )
+//     }
+//     await survey.remove();
+//     res.status(200).json({
+//         success: true,
+//         data: {}
+//     })
+// });
 
 
 //@desc Take a Survey

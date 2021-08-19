@@ -2,9 +2,9 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Backend Challenge : Surveys management api",
-    "description": "Api to create, take and manage surveys, it opeations on 5 main routes: \n\n- Surveys\n- Questions\n- Entries (results when taking a survey)\n- Answers\n- Auth (admin only)",
+    "description": "Api to create, take and manage surveys, it operates on 5 main routes: \n\n- Surveys (create, update, delete, take, metrics/statistics)\n- Questions (create, update, delete, upload description image, list, metrics, statistics)\n- Entries (results when taking a survey - same previous operations)\n- Answers (same operations)\n- Auth (admin only) (register, login, logout, forgot password, reset password + manipulation operations on all objects)",
     "contact": {},
-    "version": "1.0.1",
+    "version": "1.0.2",
     "x-codegen-settings": {
       "Nullify404": false,
       "GenerateAsyncCode": true,
@@ -124,6 +124,10 @@
     "x-image-uri": ""
   },
   "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/T7348/nodemonde23/1.0.2",
+      "description": "SwaggerHub API Auto Mocking"
+    },
     {
       "url": "https://virtserver.swaggerhub.com/T7348/nodemondew/1.0.1",
       "description": "SwaggerHub API Auto Mocking"
@@ -341,7 +345,14 @@
               "example": {
                 "name": "",
                 "description": "",
-                "questions": []
+                "questions": [
+                  {
+                    "text" : ""
+                  },
+                  {
+                    "text" : ""
+                  }
+                ]
               }
             }
           },
@@ -963,6 +974,92 @@
         ]
       }
     },
+    "/surveys/{id}/stats": {
+      "get": {
+        "tags": [
+          "Surveys"
+        ],
+        "summary": "Get survey statistics",
+        "description": "### Get survey statistics\nGet statistics metrics (percentages of yes/no answer) for all the quesions in a survey\n\n**protected routes** : yes\n\n**parameters** : id of survey",
+        "operationId": "Getsurveystatistics",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getsurveystatistics2"
+                },
+                "example": {
+                  "success": true,
+                  "data": [
+                    {
+                      "question": "question",
+                      "statistics": {
+                        "totalAnswers": 7,
+                        "answered_true": 4,
+                        "answered_false": 3,
+                        "answered_false_percentage": "42.86%",
+                        "answered_true_percentage": "57.14%"
+                      }
+                    },
+                    {
+                      "question": "this is the text",
+                      "statistics": {
+                        "totalAnswers": 1,
+                        "answered_true": 0,
+                        "answered_false": 1,
+                        "answered_false_percentage": "100%",
+                        "answered_true_percentage": "0%"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getsurveystatistics1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": []
+      }
+    },
     "/questions": {
       "get": {
         "tags": [
@@ -1361,13 +1458,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
+                "$ref": "#/components/schemas/id_image_body"
               }
             }
           }
@@ -1437,6 +1528,99 @@
             "x-testEnabled": true,
             "x-testName": "Upload description image to question",
             "x-testDescription": "### Upload description image to question\nupdate the field url of question and upload the image on static files third party service\n\n**protected route** : yes\n\n**parameters** : file (image)"
+          }
+        ]
+      }
+    },
+    "/questions/{id}/stats": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Get question statistics",
+        "description": "### Get question statistics\nGet statistics metrics (percentages of yes/no answer) for the corresponding question\n\n**protected routes** : yes\n\n**parameters** : id of question",
+        "operationId": "Getquestionstatistics",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getquestionstatistics2"
+                },
+                "example": {
+                  "success": true,
+                  "total_answers": 7,
+                  "answered_true": 4,
+                  "answered_false": 3,
+                  "answered_true_percentage": "57.14%",
+                  "answered_false_percentage": "42.86%"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Getquestionstatistics1"
+                },
+                "example": {
+                  "success": false,
+                  "error": "Not authorized to access this route (admin only)"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/questions/null/stats"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "KEYS",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\n\n  \"success\": true,\n\n  \"total_answers\": 7,\n\n  \"answered_true\": 4,\n\n  \"answered_false\": 3,\n\n  \"answered_true_percentage\": \"57.14%\",\n\n  \"answered_false_percentage\": \"42.86%\"\n\n}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get question statistics",
+            "x-testDescription": "### Get question statistics\nGet statistics metrics (percentages of yes/no answer) for the corresponding question\n\n**protected routes** : yes\n\n**parameters** : id of question"
           }
         ]
       }
@@ -1692,7 +1876,7 @@
           "Auth (admin only)"
         ],
         "summary": "Forgot password",
-        "description": "### Forgot password\nsends email for password reset.\n\n**protected route** : no\n\n**parameters** : Object(email)",
+        "description": "### Forgot password\nsends email for password reset (It wouldnt work here since it requires an smtp server, for development environment I used a service called mailtrap in order to catch sended email for testing)\n\n**protected route** : no\n\n**parameters** : Object(email)",
         "operationId": "Forgotpassword",
         "parameters": [],
         "requestBody": {
@@ -4079,6 +4263,206 @@
               "__v": 0
             }
           ]
+        }
+      },
+      "Getsurveystatistics1": {
+        "title": "Getsurveystatistics1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getsurveystatistics2": {
+        "title": "Getsurveystatistics2",
+        "required": [
+          "data",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Datum"
+            }
+          }
+        },
+        "example": {
+          "success": true,
+          "data": [
+            {
+              "question": "question",
+              "statistics": {
+                "totalAnswers": 7,
+                "answered_true": 4,
+                "answered_false": 3,
+                "answered_false_percentage": "42.86%",
+                "answered_true_percentage": "57.14%"
+              }
+            },
+            {
+              "question": "this is the text",
+              "statistics": {
+                "totalAnswers": 1,
+                "answered_true": 0,
+                "answered_false": 1,
+                "answered_false_percentage": "100%",
+                "answered_true_percentage": "0%"
+              }
+            }
+          ]
+        }
+      },
+      "Datum": {
+        "title": "Datum",
+        "required": [
+          "question",
+          "statistics"
+        ],
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/Statistics"
+          }
+        },
+        "example": {
+          "question": "question",
+          "statistics": {
+            "totalAnswers": 7,
+            "answered_true": 4,
+            "answered_false": 3,
+            "answered_false_percentage": "42.86%",
+            "answered_true_percentage": "57.14%"
+          }
+        }
+      },
+      "Statistics": {
+        "title": "Statistics",
+        "required": [
+          "answered_false",
+          "answered_false_percentage",
+          "answered_true",
+          "answered_true_percentage",
+          "totalAnswers"
+        ],
+        "type": "object",
+        "properties": {
+          "totalAnswers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answered_true": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answered_false": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answered_false_percentage": {
+            "type": "string"
+          },
+          "answered_true_percentage": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "totalAnswers": 7,
+          "answered_true": 4,
+          "answered_false": 3,
+          "answered_false_percentage": "42.86%",
+          "answered_true_percentage": "57.14%"
+        }
+      },
+      "Getquestionstatistics1": {
+        "title": "Getquestionstatistics1",
+        "required": [
+          "error",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": false,
+          "error": "Not authorized to access this route (admin only)"
+        }
+      },
+      "Getquestionstatistics2": {
+        "title": "Getquestionstatistics2",
+        "required": [
+          "answered_false",
+          "answered_false_percentage",
+          "answered_true",
+          "answered_true_percentage",
+          "success",
+          "total_answers"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "total_answers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answered_true": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answered_false": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answered_true_percentage": {
+            "type": "string"
+          },
+          "answered_false_percentage": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "success": true,
+          "total_answers": 7,
+          "answered_true": 4,
+          "answered_false": 3,
+          "answered_true_percentage": "57.14%",
+          "answered_false_percentage": "42.86%"
+        }
+      },
+      "id_image_body": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
         }
       }
     },
