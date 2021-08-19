@@ -1,5 +1,5 @@
 const Question = require('../models/Question');
-const Entry = require('../models/Entry');
+const Survey = require('../models/Survey');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const { cloudinary } = require('../utils/cloudinary');
@@ -31,25 +31,8 @@ exports.getQuestion = async (req, res, next) => {
     }
 }
 
-//@desc Get all answers of a question
-//@route GET /api/v1/questions/:id/answers
-//@access Public
-exports.getQuestionAnswers = async (req, res, next) => {
-    try {
-        const answers = await Question.find({ question: req.params.id });
-        if (!answers) {
-            return next(
-                new ErrorResponse(`No answers for the question with id of ${req.params.id}`,
-                    404
-                ));
-        }
-        res.status(200).json({ success: true, data: answers });
-    } catch (err) {
-        res.status(400).json({ success: false, error: "Wrong request format" });
-    }
-}
 //@desc Get all questions of a survey
-//@route GET /api/v1/surveys/:id/questions
+//@route GET /api/v1/questions/survey/:id
 //@access Public
 exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
@@ -148,23 +131,21 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
     const filepath = `${process.env.FILE_UPLOAD_PATH}/${file.name}`;
     await file.mv(filepath, async err => {
         if (err) {
-            console.error(err);
             return next(new ErrorResponse(`Problem with file upload`, 500));
         }
     });
     cloudinary.uploader.upload(filepath)
         .then(async (result) => {
             let url = result.url;
-            await Question.findByIdAndUpdate(req.params.id, { description_image: url });
+            const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, { description_image: url });
 
             try {
                 fs.unlinkSync(filepath)
             } catch (err) {
-                console.error(err)
             }
             res.status(200).json({
                 success: true,
-                data: url
+                data: updatedQuestion
             });
         })
         .catch((error) => {
