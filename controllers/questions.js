@@ -1,5 +1,6 @@
 const Question = require('../models/Question');
 const Survey = require('../models/Survey');
+const Answer = require('../models/Answer');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const { cloudinary } = require('../utils/cloudinary');
@@ -106,7 +107,6 @@ exports.updateQuestion = asyncHandler(async (req, res, next) => {
 // @route     PUT /api/v1/questions/:id/photo
 // @access    Private
 exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
-    console.log(req.files);
     const question = await Question.findById(req.params.id);
     if (!question) {
         return next(
@@ -156,3 +156,61 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
 
 });
 
+
+
+//@desc Get statistics for a question
+//@route GET /api/v1/questions/:id/metrics
+//@access Private
+exports.getQuestionStats = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    if (!id) {
+        return next(
+            new ErrorResponse(`Missing id field`,
+                400
+            ));
+    }
+    try {
+        const answers = await Answer.find({
+            question: id
+        });
+        if (!answers) {
+            return next(
+                new ErrorResponse(`No survey with the id of ${req.params.id}`,
+                    404)
+            );
+        }
+        if (!Array.isArray(answers) || answers.length == 0) {
+            return next(
+                new ErrorResponse(`The question with the id ${req.params.id} have no recorded answers`,
+                    404))
+
+        }
+        let metricsObject = {
+            totalAnswers: answers.length,
+            answered_true: 0,
+            answered_false: 0,
+            answered_false_percentage: 0,
+            answered_true_percentage: 0,
+        };
+        let trueAnswers = 0;
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i].answer === true) {
+                trueAnswers++;
+            }
+        }
+        metricsObject.answered_true = trueAnswers;
+        metricsObject.answered_false = answers.length - trueAnswers;
+        metricsObject.answered_true_percentage = Math.round((metricsObject.answered_true / answers.length) * 100 * 100) / 100;
+        metricsObject.answered_false_percentage = 100 - metricsObject.answered_true_percentage;
+        ; res.status(200).json({
+            success: true,
+            total_answers: answers.length,
+            answered_true: metricsObject.answered_true,
+            answered_false: metricsObject.answered_false,
+            answered_true_percentage: metricsObject.answered_true_percentage + '%',
+            answered_false_percentage: metricsObject.answered_false_percentage + '%'
+        });
+    } catch (err) {
+        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+    }
+});
