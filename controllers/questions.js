@@ -1,4 +1,5 @@
 const Question = require('../models/Question');
+const Entry = require('../models/Entry');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const { cloudinary } = require('../utils/cloudinary');
@@ -30,6 +31,51 @@ exports.getQuestion = async (req, res, next) => {
     }
 }
 
+//@desc Get all answers of a question
+//@route GET /api/v1/questions/:id/answers
+//@access Public
+exports.getQuestionAnswers = async (req, res, next) => {
+    try {
+        const answers = await Question.find({ question: req.params.id });
+        if (!answers) {
+            return next(
+                new ErrorResponse(`No answers for the question with id of ${req.params.id}`,
+                    404
+                ));
+        }
+        res.status(200).json({ success: true, data: answers });
+    } catch (err) {
+        res.status(400).json({ success: false, error: "Wrong request format" });
+    }
+}
+//@desc Get all questions of a survey
+//@route GET /api/v1/surveys/:id/questions
+//@access Public
+exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    if (!req.params.id) {
+        return next(
+            new ErrorResponse(`Missing id field`,
+                400
+            ));
+    }
+    try {
+        const survey = await Survey.findById(id)?.populate({
+            path: "questions",
+            select: "text answer"
+        });
+        if (!survey) {
+            return next(
+                new ErrorResponse(`No survey with the id of ${req.params.id}`,
+                    404)
+            );
+        }
+
+        res.status(200).json({ success: true, count: survey.questions.length, data: survey.questions });
+    } catch (err) {
+        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+    }
+});
 
 
 //@desc delete a single question

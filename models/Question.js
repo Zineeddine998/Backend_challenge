@@ -6,10 +6,6 @@ const QuestionSchema = new mongoose.Schema({
         required: [true, 'Question must have a text'],
         maxLength: [500, "Question must have at most 500 characters"]
     },
-    answer: {
-        type: Boolean,
-        required: [true, 'Question must have an answer'],
-    },
     description_image: {
         type: String,
         default: '#'

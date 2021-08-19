@@ -1,3 +1,4 @@
+const Survey = require('../models/Survey');
 const searchWrapper = (model, populate) => async (req, res, next) => {
     let query;
     let fields;
@@ -21,7 +22,9 @@ const searchWrapper = (model, populate) => async (req, res, next) => {
     query = model.find(JSON.parse(queryStr));
 
     // Select Fields
-    if (req.query.select) {
+    if (model == Survey) {
+        query = query.select('name description');
+    } else if (req.query.select) {
         fields = req.query.select.split(',').join(' ');
         query = query.select(fields);
     }
