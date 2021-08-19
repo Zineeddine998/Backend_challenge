@@ -55,7 +55,7 @@ describe("PUT /api/v1/surveys/:id", function () {
     })
 });
 describe("DELETE /api/v1/surveys/:id", function () {
-    describe("delete a single survey by id", function () {
+    describe("Success should return {success : false} since delete survey is a protected route", function () {
         it("Success should return", function () {
             app.delete('/api/v1/surveys/611d605357d4a8122d86b272')
                 .end((err, res) => {
