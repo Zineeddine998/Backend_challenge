@@ -32,7 +32,7 @@ app.use(fileupload());
 app.use(cookieParser());
 
 app.use('/api/v1/surveys', surveys);
-app.use('/api/v1/questions', questions);
+// app.use('/api/v1/questions', questions);
 app.use('/api/v1/auth', adminAuthentication);
 app.use(errorHandler);
 
@@ -56,3 +56,23 @@ process.on('unhandledRejection', (err, promise) => {
 });
 
 module.exports = app;
+
+
+// for (let i = 0; i < answers.length; i++) {
+//     const { question_id, answer } = answers[i];
+//     let currentQuestion = await Question.findById(question_id);
+//     let newAnswer = await Answer.create({
+//         text: currentQuestion.text,
+//         answer: answer,
+//         question: currentQuestion._id,
+//     });
+//     console.log(newAnswer);
+//     updatedEntry = await Entry.findByIdAndUpdate(
+//         id,
+//         { $push: { answers: newAnswer._id } },
+//         { new: true, useFindAndModify: false }
+//     ).populate({
+//         path: "answers",
+//         select: "text answer"
+//     })
+// }
