@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Question = require('./Question');
+const Entry = require('./Entry');
 
 const SurveySchema = new mongoose.Schema({
     name: {
@@ -38,7 +39,8 @@ SurveySchema.pre('remove', async function (next) {
     const listOfQuestions = this.questions;
     const listOfEntries = this.entries;
     await listOfEntries.map(async entry => {
-        await Question.findByIdAndDelete(entry._id)
+        let delete_entry = await Entry.findById(entry._id);
+        delete_entry.remove();
     })
     await listOfQuestions.map(async question => {
         await Question.findByIdAndDelete(question._id)

@@ -276,6 +276,11 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
     try {
         // Check if all the answered questions are in the survey
         let survey = await Survey.findById(req.params.id);
+        if (!survey) {
+            return next(
+                new ErrorResponse(`No Survey found with the id of ${req.params.id}`, 404
+                ))
+        }
         const surveyExtended = await Survey.findById(req.params.id).populate({
             path: "questions",
             select: "answer"

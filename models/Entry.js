@@ -4,10 +4,8 @@ const Answer = require('./Answer');
 const EntrySchema = new mongoose.Schema({
     answers: {
         type: [{
-
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Answer'
-
         }]
     },
     createdAt: {
@@ -17,9 +15,9 @@ const EntrySchema = new mongoose.Schema({
 });
 
 EntrySchema.pre('remove', async function (next) {
-    const listOfAnswers = this.questions;
+    const listOfAnswers = this.answers;
     await listOfAnswers.map(async answer => {
-        await Question.findByIdAndDelete(question._id)
+        await Answer.findByIdAndDelete(answer._id)
     })
     next();
 })
