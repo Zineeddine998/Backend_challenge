@@ -34,7 +34,7 @@ app.use(cookieParser());
 
 app.use('/api/v1/surveys', surveys);
 app.use('/api/v1/entries', entries);
-// app.use('/api/v1/questions', questions);
+app.use('/api/v1/questions', questions);
 app.use('/api/v1/auth', adminAuthentication);
 app.use(errorHandler);
 
