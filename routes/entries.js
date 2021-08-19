@@ -9,6 +9,6 @@ const { getEntries, getEntry, getEntriesBySurvey } = require('../controllers/ent
 
 router.route('/').get(protectRoute, searchWrapper(Entry, 'answers'), getEntries);
 router.route('/:id').get(protectRoute, getEntry);
-router.route('/surveys/:id').get(protectRoute, getEntriesBySurvey);
+router.route('/survey/:id').get(protectRoute, getEntriesBySurvey);
 
 module.exports = router;
