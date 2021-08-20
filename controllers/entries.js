@@ -11,6 +11,8 @@ const asyncHandler = require('../middleware/async');
 exports.getEntries = async (req, res, next) => {
     res.status(200).json(res.searchWrapper);
 }
+
+
 //@desc Get a single entry
 //@route GET /api/v1/entries/:id
 //@access Public
@@ -28,6 +30,7 @@ exports.getEntry = async (req, res, next) => {
         res.status(400).json({ success: false, error: "Wrong request format" });
     }
 }
+
 
 // //@desc delete a single entry
 // //@route DELETE /api/v1/entries/:id
@@ -103,9 +106,15 @@ exports.getEntriesBySurvey = asyncHandler(async (req, res, next) => {
                     404)
             );
         }
-
-        res.status(200).json({ success: true, count: surveyFormat.length, data: surveyFormat });
+        res.status(200).json({
+            success: true,
+            count: surveyFormat.length,
+            data: surveyFormat
+        });
     } catch (err) {
-        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+        res.status(400).json({
+            success: false,
+            error: `${err.name} : wrong id format`
+        })
     }
 });

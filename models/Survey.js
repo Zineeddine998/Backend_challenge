@@ -47,12 +47,7 @@ SurveySchema.pre('remove', async function (next) {
     })
     next();
 })
-// SurveySchema.virtual('questions', {
-//     ref: 'Qestion',
-//     localField: '_id',
-//     foreignField: 'quetion',
-//     justOne: false,
-// })
+
 
 module.exports = mongoose.model('Survey', SurveySchema);
 

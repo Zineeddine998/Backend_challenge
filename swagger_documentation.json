@@ -165,7 +165,7 @@
           "Surveys"
         ],
         "summary": "Get all surveys",
-        "description": "### Get all surveys\n\nreturn an array containing the list of all surveys (check example).\n\n**protected route** : no\n\n**parameters** : none",
+        "description": "### Get all surveys\n\nreturn an array containing the list of all surveys (check example).\n\n**protected route** : no\n\n**parameters** : none\n\n**query parameters** : \n\n**select** : to select the attributes in the returned object, ex: {{url}/surveys?select=name,description\n\n**filter**: add filter parameters ex: {{url}}/surveys?name=firstsurvey\n\n**sort** : select the field on which the sort will be. ex : {{url}}/surveys?sort=description",
         "operationId": "Getallsurveys",
         "parameters": [],
         "responses": {
@@ -1066,7 +1066,7 @@
           "Questions"
         ],
         "summary": "Get all questions",
-        "description": "### Get all questions\nreturns a list of all the questions of all the surveys\n\n**protected route** : no\n\n**parameters** : none",
+        "description": "### Get all questions\nreturns a list of all the questions of all the surveys\n\n**protected route** : no\n\n**parameters** : none\n\n**query parameters** : \n\n**select** : to select the attributes in the returned object, ex: {{url}/questions?select=text\n\n**filter**: add filter parameters ex: {{url}}/questions?text=questiontext\n\n**sort** : select the field on which the sort will be. ex : {{url}}/questions?sort=description",
         "operationId": "Getallquestions",
         "responses": {
           "200": {
@@ -1995,7 +1995,7 @@
           "Entries"
         ],
         "summary": "Get all entries",
-        "description": "### Get all entries \nreturn a list of all entries (results of the surveys)\n\n**protected route** : yes\n\n**parameters** : none",
+        "description": "### Get all entries \nreturn a list of all entries (results of the surveys)\n\n**protected route** : yes\n\n**parameters** : none\n\n**query parameters** : \n\n**select** : to select the attributes in the returned object, ex: {{url}/entries?select=answers\n\n**sort** : select the field on which the sort will be. ex : {{url}}/entries?sort=_id",
         "operationId": "Getallentries",
         "parameters": [],
         "responses": {
@@ -2341,7 +2341,7 @@
           "Answers"
         ],
         "summary": "Get all answers",
-        "description": "### Get all answers\nreturn an array of all answers (generated from entries)\n\n**protected route** : yes\n\n**parameters** : none",
+        "description": "### Get all answers\nreturn an array of all answers (generated from entries)\n\n**protected route** : yes\n\n**parameters** : none\n\n**query parameters** : \n\n**select** : to select the attributes in the returned object, ex: {{url}/answers?select=text,answer,description\n\n**filter**: add filter parameters ex: {{url}}/answer?answer=false\n\n**sort** : select the field on which the sort will be. ex : {{url}}/answers?sort=description",
         "operationId": "Getallanswers",
         "responses": {
           "200": {

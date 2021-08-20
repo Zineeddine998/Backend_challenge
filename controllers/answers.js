@@ -12,6 +12,8 @@ const asyncHandler = require('../middleware/async');
 exports.getAnswers = async (req, res, next) => {
     res.status(200).json(res.searchWrapper);
 }
+
+
 //@desc Get a single answer
 //@route GET /api/v1/answers/:id
 //@access Public
@@ -29,6 +31,7 @@ exports.getAnswer = async (req, res, next) => {
         res.status(400).json({ success: false, error: "Wrong request format" });
     }
 }
+
 
 //@desc Get all answers of a question
 //@route GET /api/v1/answers/question/:id
@@ -51,9 +54,15 @@ exports.getAnswersByQuestion = asyncHandler(async (req, res, next) => {
                     404)
             );
         }
-
-        res.status(200).json({ success: true, count: answers.length, data: answers });
+        res.status(200).json({
+            success: true,
+            count: answers.length,
+            data: answers
+        });
     } catch (err) {
-        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+        res.status(400).json({
+            success: false,
+            error: `${err.name} : wrong id format`
+        })
     }
 });

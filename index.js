@@ -2,11 +2,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
+const helmet = require('helmet');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
-const errorHandler = require('./middleware/error');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 const rfs = require('rotating-file-stream');
+const rateLimit = require('express-rate-limit');
+
+
+const errorHandler = require('./middleware/error');
 const db = require('./config/mongoDB');
 const { configCloudinary } = require('./utils/cloudinary');
 const surveys = require('./routes/surveys');
@@ -39,7 +44,15 @@ app.use(morgan(process.env.REQUEST_LOG_FORMAT || 'dev', {
 
 app.use(fileupload());
 app.use(cookieParser());
+app.use(mongoSanitize());
+app.use(helmet());
+app.use(xss());
 
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 1000,
+});
+app.use(limiter);
 app.use('/api/v1/surveys', surveys);
 app.use('/api/v1/entries', entries);
 app.use('/api/v1/questions', questions);
