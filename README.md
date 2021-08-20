@@ -99,6 +99,7 @@ The Server is ready for local testing
 The perceived latency and delay in requests time (particularly on production environment) can be linked to the following reasons:
  * **Hardware limitations** since most of the components in the deployment pipeline uses the free-tier resources of their respective service provider which tend to be used for prototyping and not for testing. 
  * **Third party services** such as Cloudinary that is also using the free tier which has variant response time.
+ * **Dyno cold start** (Heroku server stops automatically when there are no requests to the server for a period of 30min and it take 5-10 seconds for the server to move from its idle state when a new request is initiated).
 
 ### Security
 Here are all security considerations that are included in api:
