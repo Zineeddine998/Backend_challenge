@@ -125,20 +125,16 @@
   },
   "servers": [
     {
-      "url": "https://virtserver.swaggerhub.com/T7348/nodemonde23/1.0.2",
-      "description": "SwaggerHub API Auto Mocking"
-    },
-    {
-      "url": "https://virtserver.swaggerhub.com/T7348/nodemondew/1.0.1",
-      "description": "SwaggerHub API Auto Mocking"
-    },
-    {
       "url": "https://pacific-crag-09866.herokuapp.com/api/v1",
       "description": "Production environment"
     },
     {
       "url": "http://localhost:5000/api/v1",
       "description": "Development environment"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/T7348/nodemonde23/1.0.2",
+      "description": "SwaggerHub API Auto Mocking"
     }
   ],
   "tags": [
