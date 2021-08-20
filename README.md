@@ -110,7 +110,7 @@ Here are all security considerations that are included in api:
 
 ### Improvements :
 
- * Setup indexing and de-normalized data to improve performance.
+ * Setup indexing on mongodb and leverage denormalized data models to speed up queries.
  * Swap lowDB with redis since the latter has better support for caching.
  * Introduce end-to-end monitoring for the deployment pipeline.
  * Extend the deployment setup to run multiple instances of the server and add load balancing.
