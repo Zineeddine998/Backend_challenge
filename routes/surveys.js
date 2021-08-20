@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { getSurveys,
     getSurvey,
     takeSurvey,
@@ -12,6 +11,7 @@ const searchWrapper = require('../middleware/searchWrapper');
 const { protectRoute } = require('../middleware/authentication');
 const Survey = require('../models/Survey');
 
+const router = express.Router();
 router.route('/').get(searchWrapper(Survey, 'questions'), getSurveys).post(createSurvey);
 router.route('/:id/stats').get(protectRoute, getSurveyStats);
 router.route('/take/:id').post(takeSurvey);

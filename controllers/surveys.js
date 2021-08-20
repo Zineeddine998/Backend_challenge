@@ -12,6 +12,7 @@ exports.getSurveys = asyncHandler(async (req, res, next) => {
     res.status(200).json(res.searchWrapper);
 })
 
+
 //@desc Get Survey by id
 //@route GET /api/v1/survey/:id
 //@access Public
@@ -86,11 +87,20 @@ exports.createSurvey = asyncHandler(async (req, res, next) => {
             }
             ).select('name description questions');
         }
-        res.status(200).json({ success: true, message: "Survey created", data: updatedSurvey });
+        res.status(200).json({
+            success: true,
+            message: "Survey created",
+            data: updatedSurvey
+        });
     } catch (err) {
-        res.status(400).json({ success: false, error: err.message })
+        res.status(400).json({
+            success: false,
+            error: err.message
+        })
     }
 });
+
+
 
 //@desc Update a survey
 //@route PUT /api/v1/surveys/:id
@@ -108,7 +118,8 @@ exports.updateSurvey = asyncHandler(async (req, res, next) => {
         name: req.body.name,
         description: req.body.description ? req.body.description : undefined
     }
-    survey = await Survey.findByIdAndUpdate(req.params.id, updatedFields, {
+    survey = await Survey
+        .findByIdAndUpdate(req.params.id, updatedFields, {
         new: true,
         runValidators: true
     }).select('name description')
@@ -118,6 +129,8 @@ exports.updateSurvey = asyncHandler(async (req, res, next) => {
         data: survey
     })
 });
+
+
 
 //@desc delete a survey
 //@route DELETE /api/v1/surveys/:id
@@ -136,6 +149,8 @@ exports.deleteSurvey = asyncHandler(async (req, res, next) => {
         data: {}
     })
 });
+
+
 
 //@desc Add a question to a survey
 //@route PUT /api/v1/surveys/:id/questions
@@ -208,11 +223,18 @@ exports.addManyQuestionsToSurvey = asyncHandler(async (req, res, next) => {
                 new ErrorResponse(`No survey with this id`, 404
                 ))
         }
-        res.status(200).json({ success: true, count: survey.questions.length, data: survey });
+        res.status(200).json({
+            success: true,
+            count: survey.questions.length,
+            data: survey
+        });
     } catch (err) {
-        res.status(400).json({ success: false })
+        res.status(400)
+            .json({ success: false })
     }
 });
+
+
 
 //@desc Add a question to a survey
 //@route PUT /api/v1/surveys/:ids/questions/:idq
@@ -236,11 +258,18 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
                 new ErrorResponse(`No Question with the id of ${idq}`, 404
                 ))
         }
-        res.status(200).json({ success: true, count: survey.questions.length, data: survey });
+        res.status(200).json({
+            success: true,
+            count: survey.questions.length,
+            data: survey
+        });
     } catch (err) {
-        res.status(400).json({ success: false })
+        res.status(400)
+            .json({ success: false })
     }
 })
+
+
 
 // //@desc delete a survey
 // //@route DELETE /api/v1/surveys/:id
@@ -258,6 +287,8 @@ exports.removeQuestionFromSurvey = asyncHandler(async (req, res, next) => {
 //         data: {}
 //     })
 // });
+
+
 
 
 //@desc Take a Survey
@@ -283,7 +314,8 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
                 new ErrorResponse(`No Survey found with the id of ${req.params.id}`, 404
                 ))
         }
-        const surveyExtended = await Survey.findById(req.params.id).populate({
+        const surveyExtended = await Survey
+            .findById(req.params.id).populate({
             path: "questions",
             select: "answer"
         });
@@ -327,10 +359,17 @@ exports.takeSurvey = asyncHandler(async (req, res, next) => {
             { $push: { entries: updatedEntry._id } },
             { new: true, useFindAndModify: false }
         );
-        res.status(200).json({ success: true, message: "Entry saved", data: updatedEntry });
+        res.status(200).json({
+            success: true,
+            message: "Entry saved",
+            data: updatedEntry
+        });
 
     } catch (err) {
-        res.status(400).json({ success: false, error: err.message });
+        res.status(400).json({
+            success: false,
+            error: err.message
+        });
     }
 });
 

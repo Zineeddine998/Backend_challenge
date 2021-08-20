@@ -31,10 +31,13 @@ RUN npm install -g npm-check-updates \
     npm install cookie-parser \
     npm install express-fileupload \
     npm install rotating-file-stream \
-    npm install -D chai \
-    npm install -D jest \
-    npm install -D mocha \
-    npm install -D supertest
+    npm install express-mongo-sanitize \
+    npm install express-rate-limit \
+    npm install helmet \
+    npm install nodemailer \
+    npm install swagger-ui-express \
+    npm install xss-clean
+
     
 
 # If you are building your code for production

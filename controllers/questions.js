@@ -14,6 +14,8 @@ const path = require('path');
 exports.getQuestions = async (req, res, next) => {
     res.status(200).json(res.searchWrapper);
 }
+
+
 //@desc Get a single question
 //@route GET /api/v1/questions/:id
 //@access Public
@@ -26,11 +28,18 @@ exports.getQuestion = async (req, res, next) => {
                 404
                 ));
         }
-        res.status(200).json({ success: true, data: question });
+        res.status(200).json({
+            success: true,
+            data: question
+        });
     } catch (err) {
-        res.status(400).json({ success: false, error: "Wrong request format" });
+        res.status(400).json({
+            success: false,
+            error: "Wrong request format"
+        });
     }
 }
+
 
 //@desc Get all questions of a survey
 //@route GET /api/v1/questions/survey/:id
@@ -54,10 +63,16 @@ exports.getQuestionsBySurvey = asyncHandler(async (req, res, next) => {
                     404)
             );
         }
-
-        res.status(200).json({ success: true, count: survey.questions.length, data: survey.questions });
+        res.status(200).json({
+            success: true,
+            count: survey.questions.length,
+            data: survey.questions
+        });
     } catch (err) {
-        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+        res.status(400).json({
+            success: false,
+            error: `${err.name} : wrong id format`
+        })
     }
 });
 
@@ -76,6 +91,7 @@ exports.deleteQuestion = asyncHandler(async (req, res, next) => {
     await question.remove();
     res.status(200).json({
         success: true,
+        message: "Question deleted",
         data: {}
     })
 });
@@ -97,6 +113,7 @@ exports.updateQuestion = asyncHandler(async (req, res, next) => {
     });
     res.status(200).json({
         success: true,
+        message: "Question updated",
         data: question
     })
 });
@@ -138,7 +155,9 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
     cloudinary.uploader.upload(filepath)
         .then(async (result) => {
             let url = result.url;
-            const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, { description_image: url });
+            const updatedQuestion = await Question
+                .findByIdAndUpdate(req.params.id,
+                    { description_image: url });
             updatedQuestion.description_image = url;
             try {
                 fs.unlinkSync(filepath)
@@ -146,14 +165,13 @@ exports.uploadImageQuestion = asyncHandler(async (req, res, next) => {
             }
             res.status(200).json({
                 success: true,
+                message: "Image uploaded",
                 data: updatedQuestion
             });
         })
         .catch((error) => {
             return next(new ErrorResponse(`Problem with file upload | ${error}`, 500));
         });
-
-
 });
 
 
@@ -199,9 +217,10 @@ exports.getQuestionStats = asyncHandler(async (req, res, next) => {
         }
         metricsObject.answered_true = trueAnswers;
         metricsObject.answered_false = answers.length - trueAnswers;
-        metricsObject.answered_true_percentage = Math.round((metricsObject.answered_true / answers.length) * 100 * 100) / 100;
+        metricsObject.answered_true_percentage = Math
+            .round((metricsObject.answered_true / answers.length) * 100 * 100) / 100;
         metricsObject.answered_false_percentage = 100 - metricsObject.answered_true_percentage;
-        ; res.status(200).json({
+        res.status(200).json({
             success: true,
             total_answers: answers.length,
             answered_true: metricsObject.answered_true,
@@ -210,6 +229,9 @@ exports.getQuestionStats = asyncHandler(async (req, res, next) => {
             answered_false_percentage: metricsObject.answered_false_percentage + '%'
         });
     } catch (err) {
-        res.status(400).json({ success: false, error: `${err.name} : wrong id format` })
+        res.status(400).json({
+            success: false,
+            error: `${err.name} : wrong id format`
+        })
     }
 });

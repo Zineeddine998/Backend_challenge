@@ -12,7 +12,6 @@ function connect() {
             resolve();
         })
     });
-
 }
 
 function close() {
