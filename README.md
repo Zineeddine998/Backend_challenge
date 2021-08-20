@@ -1,6 +1,6 @@
 # Backend dev challenge
-[![Depolyment to Heroku](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/secondary.yml/badge.svg)](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/secondary.yml)
-[![Docker Hub Deoplyment](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/main.yml/badge.svg)](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/main.yml)
+[![Deployment to Heroku](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/secondary.yml/badge.svg)](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/secondary.yml)
+[![Docker Hub Deployment](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/main.yml/badge.svg)](https://github.com/Zineeddine998/Backend_challenge/actions/workflows/main.yml)
 
 Rest Api for a survey management platform
 #
