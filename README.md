@@ -52,7 +52,7 @@ Api to create, take and manage surveys, it operates on 5 main routes:
 ## Usage
 
 ### Production 
- * Swagger documentation and playground for the api are available [here](https://pacific-crag-09866.herokuapp.com/api-docs)
+ * Swagger documentation and playground for the api are available [here](https://pacific-crag-09866.herokuapp.com/api-docs)(make sure to set the server as "production environment" in swagger)
  * Postman static api documentation is available [here](https://documenter.getpostman.com/view/17089549/TzzBqGEe)
 
 ### Run Server locally
