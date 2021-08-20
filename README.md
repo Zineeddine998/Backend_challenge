@@ -12,7 +12,7 @@ Api to create, take and manage surveys, it operates on 5 main routes:
 -   Questions (list, filter, create, update, delete, upload description image, metrics, statistics)
 -   Entries (results when taking a survey - same previous operations)
 -   Answers (same operations)
--   Auth (admin only) (register, login, logout, forgot password, reset password + manipulation operations on all objects)
+-   Auth (admin only) (register, login, logout, forgot password, reset password + manipulation operations on all objects and protected routes)
 
 ### Technical Implementation :
 **Tech Stack**
@@ -36,7 +36,7 @@ Api to create, take and manage surveys, it operates on 5 main routes:
 
 ## Packages and libraries used
 
-* [Chai](https://www.chaijs.com/), [https://mochajs.org/](https://github.com/mobxjs/mobx), [Jest](https://jestjs.io/) and [supertest](https://www.npmjs.com/package/supertest) for unit and integration testing
+* [Chai](https://www.chaijs.com/), [Mocha](https://github.com/mobxjs/mobx), [Jest](https://jestjs.io/) and [supertest](https://www.npmjs.com/package/supertest) for unit and integration testing
 * [mongoose](https://mongoosejs.com/) for data interaction with MongoDB
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) for authentication and token management
 * [cookie-parser](https://www.npmjs.com/package/cookie-parser) for session management
@@ -52,7 +52,7 @@ Api to create, take and manage surveys, it operates on 5 main routes:
 ## Usage
 
 ### Production 
- * Swagger documentation and playground for the api is available [here](https://pacific-crag-09866.herokuapp.com/api-docs)
+ * Swagger documentation and playground for the api are available [here](https://pacific-crag-09866.herokuapp.com/api-docs)
  * Postman static api documentation is available [here](https://documenter.getpostman.com/view/17089549/TzzBqGEe)
 
 ### Run Server locally
@@ -112,7 +112,8 @@ Here are all security considerations that are included in api:
  * Setup indexing and de-normalized data to improve performance.
  * Swap lowDB with redis since the latter has better support for caching.
  * Introduce end-to-end monitoring for the deployment pipeline.
- *  Extend the deployment setup to spin multiple instances of the server and add load balancing.
+ * Extend the deployment setup to run multiple instances of the server and add load balancing.
+ * Conternize the mongodb server instance and include it in the deployment setup.
 
 
 
